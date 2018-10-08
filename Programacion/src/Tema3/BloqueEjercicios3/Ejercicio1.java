@@ -10,14 +10,14 @@ public class Ejercicio1 {
 		
 		for (int i=0;numero!=0;i++) {
 			if (i==0) {
-				int numerosIntroducidos=Integer.parseInt(JOptionPane.showInputDialog(mensaje));
-				acumulador=acumulador+numerosIntroducidos;
+				numero=Integer.parseInt(JOptionPane.showInputDialog(mensaje));
+				acumulador+=numero;
 			}
 			else {
-				int numerosIntroducidos=Integer.parseInt(JOptionPane.showInputDialog(mensaje));
-				acumulador=acumulador+numerosIntroducidos;
+				numero=Integer.parseInt(JOptionPane.showInputDialog(mensaje));
+				acumulador+=numero;
 			}
 		}
-			JOptionPane.showMessageDialog(nul,"La suma de los numeros introducidos es: "+acumulador);
+			JOptionPane.showMessageDialog(null,"La suma de los numeros introducidos es: "+acumulador);
 	}
 }

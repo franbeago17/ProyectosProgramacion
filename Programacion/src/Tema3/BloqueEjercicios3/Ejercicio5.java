@@ -6,34 +6,25 @@ public class Ejercicio5 {
 
 	public static void main(String[] args) {
 		int numero = 1, mayor = 0, menor=0;
-		String mensaje = "Introduzca número (0 -> Terminar)";
+		String mensaje = "Introduzca numero (0 -> Terminar)";
 	
 		for (int i = 0; numero != 0; i++) {
-			if (i == 0) { // Primera iteración
-				mayor = Integer.parseInt(JOptionPane.showInputDialog(mensaje));
-				numero = mayor;
+			if (i == 0) {
+				numero= Integer.parseInt(JOptionPane.showInputDialog(mensaje));
+				mayor=numero;
+				menor=numero;
 			}
-			else { // Resto de iteraciones
-				numero = Integer.parseInt(JOptionPane.showInputDialog(mensaje));
-				if (numero > mayor && numero != 0) {
-					mayor = numero;
+			else {
+				numero= Integer.parseInt(JOptionPane.showInputDialog(mensaje));
+				if (numero>mayor && numero != 0) {
+					mayor=numero;
 				}
-			}	
-		}
-		for (int i = 0; numero != 0; i++) {
-			if (i == 0) { // Primera iteración
-				menor = Integer.parseInt(JOptionPane.showInputDialog(mensaje));
-				numero = menor;
+				if (numero<menor && numero != 0) {
+					menor=numero;
+				}
 			}
-			else { // Resto de iteraciones
-				numero = Integer.parseInt(JOptionPane.showInputDialog(mensaje));
-				if (numero < menor && numero != 0) {
-					menor = numero;
-				}
-			}	
 		}
-	
-		JOptionPane.showMessageDialog(nul, "Menor: " + menor);
-		JOptionPane.showMessageDialog(null, "Mayor: " + mayor);
+		JOptionPane.showMessageDialog(null, "Menor: " + menor+"\n"
+				+ "Mayor: " + mayor);
 	}
 }

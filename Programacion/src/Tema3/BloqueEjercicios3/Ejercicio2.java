@@ -4,21 +4,19 @@ import javax.swing.JOptionPane;
 
 public class Ejercicio2 {
 	public static void main(String[] args) {
-		int numero=1,acumulador=0,contador=0;
+		int i=1,numero=1,acumulador=0;
 		String mensaje="Introduzca un numero (0->Terminar): ";
 		
-		for (int i=0;numero!=0;i++) {
-			if (i==0) {
-				int numerosIntroducidos=Integer.parseInt(JOptionPane.showInputDialog(mensaje));
-				acumulador=acumulador+numerosIntroducidos;
-				contador++;
+		for (i=1;numero!=0;i++) {
+			if (i==1) {
+				numero=Integer.parseInt(JOptionPane.showInputDialog(mensaje));
+				acumulador+=numero;
 			}
 			else {
-				int numerosIntroducidos=Integer.parseInt(JOptionPane.showInputDialog(mensaje));
-				acumulador=acumulador+numerosIntroducidos;
-				contador++;
+					numero=Integer.parseInt(JOptionPane.showInputDialog(mensaje));
+					acumulador+=numero;
 			}
 		}
-			JOptionPane.showMessageDialog(nul,"La suma de los numeros introducidos es: "+acumulador);
+			JOptionPane.showMessageDialog(null,"La media de los numeros introducidos es: "+acumulador/(i-1));
 	}
 }

@@ -6,14 +6,14 @@ public class Ejercicio4 {
 
 	public static void main(String[] args) {
 		int numero = 1, menor = 0;
-		String mensaje = "Introduzca número (0 -> Terminar)";
+		String mensaje = "Introduzca nï¿½mero (0 -> Terminar)";
 	
 		for (int i = 0; numero != 0; i++) {
-			if (i == 0) { // Primera iteración
+			if (i == 0) {
 				menor = Integer.parseInt(JOptionPane.showInputDialog(mensaje));
 				numero = menor;
 			}
-			else { // Resto de iteraciones
+			else {
 				numero = Integer.parseInt(JOptionPane.showInputDialog(mensaje));
 				if (numero < menor && numero != 0) {
 					menor = numero;
