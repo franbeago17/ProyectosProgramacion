@@ -11,7 +11,6 @@ public class Ejercicio4 {
 		for (int i = 0; numero != 0; i++) {
 			if (i == 0) {
 				menor = Integer.parseInt(JOptionPane.showInputDialog(mensaje));
-				numero = menor;
 			}
 			else {
 				numero = Integer.parseInt(JOptionPane.showInputDialog(mensaje));

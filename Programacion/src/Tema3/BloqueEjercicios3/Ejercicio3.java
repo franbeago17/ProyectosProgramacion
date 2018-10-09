@@ -10,7 +10,6 @@ public class Ejercicio3 {
 		for (int i = 0; numero != 0; i++) {
 			if (i == 0) {
 				mayor = Integer.parseInt(JOptionPane.showInputDialog(mensaje));
-				numero = mayor;
 			}
 			else {
 				numero = Integer.parseInt(JOptionPane.showInputDialog(mensaje));
