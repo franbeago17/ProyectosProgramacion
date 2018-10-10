@@ -1,4 +1,4 @@
-package Tema3.BloqueEjercicios3;
+package Tema3.BloqueEjercicios3.EjerciciosConDoWhile;
 
 import javax.swing.JOptionPane;
 
@@ -8,16 +8,11 @@ public class Ejercicio1 {
 		int numero=1,acumulador=0;
 		String mensaje="Introduzca un numero (0->Terminar): ";
 		
-		for (int i=0;numero!=0;i++) {
-			if (i==0) {
+			do {
 				numero=Integer.parseInt(JOptionPane.showInputDialog(mensaje));
 				acumulador+=numero;
 			}
-			else {
-				numero=Integer.parseInt(JOptionPane.showInputDialog(mensaje));
-				acumulador+=numero;
-			}
-		}
+			while (numero!=0); 
 			JOptionPane.showMessageDialog(null,"La suma de los numeros introducidos es: "+acumulador);
 	}
 }
