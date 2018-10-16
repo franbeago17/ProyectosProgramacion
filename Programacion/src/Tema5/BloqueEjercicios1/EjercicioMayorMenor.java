@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 public class EjercicioMayorMenor {
 
 	public static void main(String[] args) {
-		int array[]= new int[100], i=0,numero=0, mayor=0, menor=0;
+		int array[]= new int[150], i=0,numero=0, mayor=0, menor=0;
 		for(i=0; i<array.length;i++) {
 			numero=(int)Math.round(Math.random()*100);
 			System.out.println("Numero["+i+"]:"+numero);

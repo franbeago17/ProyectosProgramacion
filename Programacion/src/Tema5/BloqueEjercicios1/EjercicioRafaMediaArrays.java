@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 public class EjercicioRafaMediaArrays {
 
 	public static void main(String[] args) {
-		int array[]= new int[100],sumatorio=0,i=0,numeros=0;
+		int array[]= new int[150],sumatorio=0,i=0,numeros=0;
 		float media=0;
 		int limiteInferior=Integer.parseInt(JOptionPane.showInputDialog("Introduzca limite inferior: "));
 		int limiteSuperior=Integer.parseInt(JOptionPane.showInputDialog("Introduzca limite superior: "));
