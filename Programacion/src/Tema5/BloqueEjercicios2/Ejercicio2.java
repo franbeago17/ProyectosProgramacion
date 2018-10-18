@@ -4,7 +4,7 @@ public class Ejercicio2 {
 
 	public static void main(String[] args) {
 		System.out.println("ARRAY 1");
-		int array1[]= new int[150],i=0, array2[]= new int[150], array3[]= new int[150];
+		int array1[]= new int[5],i=0, array2[]= new int[5], array3[]= new int[5];
 		for(i=0; i<array1.length;i++) {
 			array1[i]=(int)Math.round(Math.random()*100);
 			System.out.println("numero["+i+"]:"+array1[i]);
