@@ -1,5 +1,4 @@
 package Tema1;
-import java.awt.JobAttributes;
 
 import javax.swing.JOptionPane;
 

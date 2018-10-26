@@ -15,12 +15,12 @@ public class Ejercicio5 {
 			for(j=0;j<n;j++) {
 				System.out.println("\n\nDesplazamiento "+(j+1));
 				int aux=array[array.length-1];
-			for(i=(array.length-1);i>0;i--) {
-				array[i]=array[i-1];
-			}
-			array[0]=aux;
-			for (i=0; i<array.length;i++) {
-				System.out.print(array[i]+"  ");
+				for(i=(array.length-1);i>0;i--) {
+					array[i]=array[i-1];
+				}
+				array[0]=aux;
+				for (i=0; i<array.length;i++) {
+					System.out.print(array[i]+"  ");
 			}	
 		}
 	}

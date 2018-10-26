@@ -32,8 +32,11 @@ public class Ejercicio5CincoVariablesMayorMenor {
 										if (var5 >= var1 && var5 >= var2 && var5 >= var3 && var5 >= var4) {
 											System.out.println("El mayor numero es el quinto: "+var5);
 											if (var1 <= var2 && var1 <= var3 && var1 <= var4 && var1 <= var5) {
-												System.out.println("El menor numero es el primero: "+var1);}
-												else {
+												System.out.println("El menor numero es el primero: "+var1);
+										}
+									}				
+								}
+							}												}
 													
 		if (var2 <= var1 && var2 <= var3 && var2 <= var4 && var2 <= var5) {
 			System.out.println("El menor numero es el segundo: "+var2);}
@@ -46,11 +49,7 @@ public class Ejercicio5CincoVariablesMayorMenor {
 							else {
 								if (var5 <= var1 && var5 <= var2 && var5 <= var3 && var5 <= var4) {
 									System.out.println("El menor numero es el quinto: "+var5);
-				}
-			}
-		}				
-	}
-}
+			
 						}
 					}
 				}				

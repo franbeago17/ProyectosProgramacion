@@ -3,7 +3,7 @@ package Tema5.BloqueEjercicios3_Ordenacion;
 public class Ejercicio3_Shell {
 
 	public static void main(String[] args) {
-		int array[]= new int[5], i, aux, salto;
+		int array[]= new int[150], i, aux, salto;
 		System.out.println("Array sin oredenar: ");
 		for(i=0; i<array.length;i++) {
 			array[i]=(int)Math.round(Math.random()*1000);

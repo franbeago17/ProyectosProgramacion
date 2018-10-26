@@ -1,6 +1,8 @@
 package Tema5.BloqueEjercicios2;
 
 public class Ejercicio4 {
+	
+	//Array ciclado a derecha.
 
 	public static void main(String[] args) {
 		int array[]= new int[5],i=0;
