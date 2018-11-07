@@ -15,13 +15,13 @@ public class Joyas extends Antiguedades {
 	
 	/**
 	 * 
-	 * @param a�oDeFabricacion
+	 * @param añoDeFabricacion
 	 * @param origen
 	 * @param precioDeVenta
 	 * @param materialFabricacion
 	 */
-	public Joyas(int a�oDeFabricacion, String origen, float precioDeVenta, String materialFabricacion) {
-		super(a�oDeFabricacion, origen, precioDeVenta);
+	public Joyas(int añoDeFabricacion, String origen, float precioDeVenta, String materialFabricacion) {
+		super(añoDeFabricacion, origen, precioDeVenta);
 		this.materialFabricacion= materialFabricacion;
 		
 	}
@@ -32,6 +32,16 @@ public class Joyas extends Antiguedades {
 	public void setMaterialFabricacion(String materialFabricacion) {
 		this.materialFabricacion = materialFabricacion;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Joyas [materialFabricacion=" + materialFabricacion + ", Año de fabricacion=" + getAñoDeFabricacion()
+				+ ", Origen=" + getOrigen() + ", Precio de venta()=" + getPrecioDeVenta() + "]";
+	}
+
+
+
 	
 	
 

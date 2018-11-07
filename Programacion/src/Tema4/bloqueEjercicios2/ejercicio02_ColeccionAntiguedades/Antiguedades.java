@@ -2,7 +2,7 @@ package Tema4.bloqueEjercicios2.ejercicio02_ColeccionAntiguedades;
 
 public class Antiguedades {
 	
-	private int añoDeFabricacion;
+	private int aÃ±oDeFabricacion;
 	private String origen;
 	private float precioDeVenta;
 	
@@ -19,23 +19,23 @@ public class Antiguedades {
 	
 	/**
 	 * 
-	 * @param añoDeFabricacion
+	 * @param aï¿½oDeFabricacion
 	 * @param origen
 	 * @param precioDeVenta
 	 */
-	public Antiguedades(int añoDeFabricacion, String origen, float precioDeVenta) {
+	public Antiguedades(int aÃ±oDeFabricacion, String origen, float precioDeVenta) {
 		super();
-		this.añoDeFabricacion = añoDeFabricacion;
+		this.aÃ±oDeFabricacion = aÃ±oDeFabricacion;
 		this.origen = origen;
 		this.precioDeVenta = precioDeVenta;
 	}
 	
 	
-	public int getAñoDeFabricacion() { 
-		return añoDeFabricacion;
+	public int getAÃ±oDeFabricacion() { 
+		return aÃ±oDeFabricacion;
 		}
-	public void setAñoDeFabricacion(int añoDeFabricacion) { 
-		this.añoDeFabricacion = añoDeFabricacion; 
+	public void setAÃ±oDeFabricacion(int aÃ±oDeFabricacion) { 
+		this.aÃ±oDeFabricacion = aÃ±oDeFabricacion; 
 		}
 	
 	
@@ -55,6 +55,9 @@ public class Antiguedades {
 	public void setPrecioDeVenta(float precioDeVenta) { 
 		this.precioDeVenta = precioDeVenta; 
 		}
+
+
+
 
 	
 	

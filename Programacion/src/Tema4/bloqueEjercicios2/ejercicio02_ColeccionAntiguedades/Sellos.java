@@ -2,7 +2,7 @@ package Tema4.bloqueEjercicios2.ejercicio02_ColeccionAntiguedades;
 
 public class Sellos extends Antiguedades {
 	
-	private int añoFabricacion;
+	private int aÃ±oFabricacion;
 	private String fabricante;
 	
 	
@@ -16,15 +16,15 @@ public class Sellos extends Antiguedades {
 	
 	/**
 	 * 
-	 * @param añoDeFabricacion
+	 * @param aï¿½oDeFabricacion
 	 * @param origen
 	 * @param precioDeVenta
-	 * @param añoFabricacion
+	 * @param aï¿½oFabricacion
 	 * @param fabricante
 	 */
-	public Sellos(int añoDeFabricacion, String origen, float precioDeVenta, int añoFabricacion, String fabricante) {
-		super(añoDeFabricacion, origen, precioDeVenta);
-		this.añoFabricacion= añoDeFabricacion;
+	public Sellos(int aÃ±oDeFabricacion, String origen, float precioDeVenta, int aÃ±oFabricacion, String fabricante) {
+		super(aÃ±oDeFabricacion, origen, precioDeVenta);
+		this.aÃ±oFabricacion= aÃ±oDeFabricacion;
 		this.fabricante= fabricante;
 	}
 	
@@ -37,11 +37,11 @@ public class Sellos extends Antiguedades {
 	
 	
 	
-	public int getAñoFabricacion() { 
-		return añoFabricacion;
+	public int getAÃ±oFabricacion() { 
+		return aÃ±oFabricacion;
 		}
-	public void setAñoFabricacion(int añoFabricacion) {
-		this.añoFabricacion = añoFabricacion;
+	public void setAÃ±oFabricacion(int aÃ±oFabricacion) {
+		this.aÃ±oFabricacion = aÃ±oFabricacion;
 	}
 	
 	

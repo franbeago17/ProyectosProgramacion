@@ -16,14 +16,14 @@ public class Libros extends Antiguedades {
 	
 	/**
 	 * 
-	 * @param añoDeFabricacion
+	 * @param aï¿½oDeFabricacion
 	 * @param origen
 	 * @param precioDeVenta
 	 * @param autor
 	 * @param titulo
 	 */
-	public Libros(int añoDeFabricacion, String origen, float precioDeVenta, String autor, String titulo) {
-		super(añoDeFabricacion, origen, precioDeVenta);
+	public Libros(int aÃ±oDeFabricacion, String origen, float precioDeVenta, String autor, String titulo) {
+		super(aÃ±oDeFabricacion, origen, precioDeVenta);
 		this.autor= autor;
 		this.titulo= titulo;
 		

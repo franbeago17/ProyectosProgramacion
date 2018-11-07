@@ -17,15 +17,15 @@ public class Mascaras extends Antiguedades {
 	
 	/**
 	 * 
-	 * @param añoDeFabricacion
+	 * @param aï¿½oDeFabricacion
 	 * @param origen
 	 * @param precioDeVenta
 	 * @param tribuPerteneciente
 	 * @param material
 	 * @param antiguedad
 	 */
-	public Mascaras(int añoDeFabricacion, String origen, float precioDeVenta, String tribuPerteneciente, String material, int antiguedad) {
-		super(añoDeFabricacion, origen, precioDeVenta);
+	public Mascaras(int aÃ±oDeFabricacion, String origen, float precioDeVenta, String tribuPerteneciente, String material, int antiguedad) {
+		super(aÃ±oDeFabricacion, origen, precioDeVenta);
 		this.tribuPerteneciente= tribuPerteneciente;
 		this.material= material;
 		this.antiguedad= antiguedad;
