@@ -55,6 +55,14 @@ public class Mascaras extends Antiguedades {
 	public void setAntiguedad(int antiguedad) {
 		this.antiguedad = antiguedad;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Mascaras\nTribu perteneciente=" + tribuPerteneciente + "\nMaterial=" + material + "\nAntiguedad="
+				+ antiguedad + "\nAño de fabricacion=" + getAñoDeFabricacion() + "\nOrigen=" + getOrigen()
+				+ "\nPrecio de venta=" + getPrecioDeVenta();
+	}
 	
 	
 	

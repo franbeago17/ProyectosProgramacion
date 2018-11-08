@@ -44,6 +44,13 @@ public class Libros extends Antiguedades {
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Libros\nAutor=" + autor + "\nTitulo=" + titulo + "\nAño de fabricacion=" + getAñoDeFabricacion()
+				+ "\nOrigen=" + getOrigen() + "\nPrecio de venta=" +getPrecioDeVenta();
+	}
 	
 	
 }

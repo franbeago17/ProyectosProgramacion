@@ -19,7 +19,7 @@ public class Antiguedades {
 	
 	/**
 	 * 
-	 * @param a�oDeFabricacion
+	 * @param añoDeFabricacion
 	 * @param origen
 	 * @param precioDeVenta
 	 */

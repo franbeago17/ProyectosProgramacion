@@ -36,8 +36,8 @@ public class Joyas extends Antiguedades {
 
 	@Override
 	public String toString() {
-		return "Joyas [materialFabricacion=" + materialFabricacion + ", Año de fabricacion=" + getAñoDeFabricacion()
-				+ ", Origen=" + getOrigen() + ", Precio de venta()=" + getPrecioDeVenta() + "]";
+		return "Joyas\nMaterial de fabricacion=" + materialFabricacion + "\nAño de fabricacion=" + getAñoDeFabricacion()
+				+ "\nOrigen=" + getOrigen() + "\nPrecio de venta=" + getPrecioDeVenta();
 	}
 
 
