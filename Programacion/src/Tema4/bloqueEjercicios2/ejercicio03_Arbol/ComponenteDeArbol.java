@@ -1,41 +1,37 @@
 package Tema4.bloqueEjercicios2.ejercicio03_Arbol;
 
 public class ComponenteDeArbol {
+String nombre;
+
 	
-	private ComponenteDeArbol extension1;
-	private ComponenteDeArbol extension2;
-	private ComponenteDeArbol extension3;
 	
 	/**
-	 * 
+	 * @param nombre
 	 */
-	public ComponenteDeArbol() {
+	public ComponenteDeArbol(String nombre) {
 		super();
-	}
-	
-
-	
-	public ComponenteDeArbol getExtension1() {
-		return extension1;
-	}
-	public void setExtension1(ComponenteDeArbol extension1) {
-		this.extension1 = extension1;
-	}
-	
-	
-	public ComponenteDeArbol getExtension2() {
-		return extension2;
-	}
-	public void setExtension2(ComponenteDeArbol extension2) {
-		this.extension2 = extension2;
+		this.nombre = nombre;
 	}
 
+	/**
+	 * @return the nombre
+	 */
+	public String getNombre() {
+		return nombre;
+	}
+
+	/**
+	 * @param nombre the nombre to set
+	 */
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	
+	@Override
+	public String toString() {
+		return "ComponenteDeArbol [nombre=" + nombre + "]";
+	}
 	
 	
-	public ComponenteDeArbol getExtension3() {
-		return extension3;
-	}
-	public void setExtension3(ComponenteDeArbol extension3) {
-		this.extension3 = extension3;
-	}
 }
