@@ -15,22 +15,18 @@ public class PrincipalArbol {
 		rama01.setExtension1(new Fruto("Fruto 02"));
 		rama01.setExtension2(new Rama("Rama 02"));
 		rama01.setExtension3(null);
-		
-		crearArbol((Rama)tronco);
-		
 	}
 	
-	public static Rama crearArbol(Rama tronco) {
-		if (tronco.getExtension1() instanceof Rama) {
-			return (Rama) tronco.getExtension1();
+	private static Rama recorreComponente (ComponenteDeArbol componente) {
+		if (componente instanceof Fruto) {
+			System.out.println("Fruto: " + componente.getNombre());
 		}
-		if (tronco.getExtension2() instanceof Rama) {
-			return (Rama) tronco.getExtension2();
+		if (componente instanceof Hoja) {
+			System.out.println("Hoja: " + componente.getNombre());;
 		}
-		if (tronco.getExtension3() instanceof Rama) {
-			return (Rama) tronco.getExtension3();
+		if (componente instanceof Rama) {
+			recorreComponente (();
 		}
-		System.out.println("Parte principal "+tronco);
-		return tronco;
+		
 	}
 }

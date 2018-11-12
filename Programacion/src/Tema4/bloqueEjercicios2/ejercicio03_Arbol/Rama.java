@@ -2,9 +2,9 @@ package Tema4.bloqueEjercicios2.ejercicio03_Arbol;
 
 public class Rama extends ComponenteDeArbol {
 
-	private ComponenteDeArbol extension1;
-	private ComponenteDeArbol extension2;
-	private ComponenteDeArbol extension3;
+	private ComponenteDeArbol extension1 = null;
+	private ComponenteDeArbol extension2 = null;
+	private ComponenteDeArbol extension3 = null;
 
 	
 	/**
