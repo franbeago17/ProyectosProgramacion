@@ -3,7 +3,6 @@ package Tema4.EjercicioLaOca;
 public class Jugador {
 	private String nombre;
 	private int posicion = 0;
-	private Tablero tablero;
 	
 	
 	/**
@@ -17,20 +16,37 @@ public class Jugador {
 	/**
 	 * @param nombre
 	 */
-	public Jugador(String nombre, Tablero tablero) {
+	public Jugador(String nombre) {
 		super();
 		this.nombre = nombre;
-		this.tablero = tablero;
 	}
 	
 	
 	
 	public void tirarDado() {
-		int dado = (int) Math.round(Math.random()*(6-1)+1);
+		int dado = 4;     //(int) Math.round(Math.random()*(6-1)+1);
 		System.out.println("Dado: "+ dado);
+		// Sumo el dado a la posición actual
 		this.posicion += dado;
-		if (this.posicion > tablero.getTablero().length) {
-			this.posicion = 62 - (this.posicion - 62);  
+		// Calculo el posible rebote
+		if (this.posicion > Tablero.getTablero().getCasillas().length) {
+			this.posicion = Tablero.getTablero().getCasillas().length - (this.posicion - Tablero.getTablero().getCasillas().length);
+		}
+		// Comprobamos si estamos en una casilla especial
+		Casilla casillaActual = Tablero.getTablero().getCasillas()[this.posicion];
+		System.out.println("Estamos en la casilla de índice "+ this.posicion+
+				 " - Orden= " +casillaActual.getOrden()+
+				 " - Nombre= " +casillaActual.getNombre());
+		
+		// Busco un destino de la casilla actual
+		if (casillaActual.getDestino() != null){ // Hay un destino
+			Casilla casillaDestino = casillaActual.getDestino();
+			System.out.println("Estamos en la casilla de índice "+
+					 " - Orden= " +casillaDestino.getOrden()+
+					 " - Nombre= " +casillaDestino.getNombre());
+			
+			// Actualizar la posición del jugador, teniendo en cuenta que ha caído en una casilla especial
+			this.posicion = casillaDestino.getOrden() - 1;
 		}
 	}
 	
