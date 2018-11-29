@@ -39,6 +39,21 @@ public class Casilla {
 		this.orden = orden;
 		this.nombre = nombre;
 	}
+	
+	
+	/*
+	 * 
+	 */
+	public boolean isEspecial () {
+		if (this.getDestino() != null) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	
 	public int getOrden() {
 		return orden;
 	}

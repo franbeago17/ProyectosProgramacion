@@ -1,32 +1,96 @@
 package Tema4.EjercicioLaOca;
 
-import javax.swing.JOptionPane;
-
 public class Principal {   
 
 	/**
 	 * 
 	 */
 	public static void main (String args[]) {
+		String nombresJugadores[] = new String[] {"Rafa", "Joaquín", "Pedro", "Marta", "Sofía", "Laura"};
 		
-		int numeroJugadores = Integer.parseInt(JOptionPane.showInputDialog("Introduzca número de jugadores: "));
-		Jugador jugador[] = new Jugador[numeroJugadores];
-		int i, numeroJugadoresTerminados=0;// Creamos una variable para contabilizar los jugadores que han terminado.
-		// Creamos jugadores
-		for (i=0;i<numeroJugadores;i++) {
-			jugador[i] = new Jugador("Jugador " + i);
+		Jugador jugadores[] = new Jugador[6];
+		for (int i = 0; i < jugadores.length; i++) {
+			jugadores[i] = new Jugador(nombresJugadores[i]);
 		}
-		do {// Mientras que no hayan terminado todos los jugadores.
-			for (i=0;i<numeroJugadores;i++) {
-				if (!jugador[i].isTerminado()) {// Si no han terminado haz que el jugador tire el dado.
-					System.out.println("Jugador " + (i+1));
-					jugador[i].tirarDado();
-					if (jugador[i].isTerminado()) {// Si ha terminado añadelo a los jugadores que ya han acabado.
-						numeroJugadoresTerminados++;
-						System.out.println("\n\n\tHAS GANADO EL JUEGO DE LA OCA!");
+		//jugadores[0].setCasilla(Tablero.getTablero().getCasillas()[28]);
+		
+		
+		// Prueba de uso del primer jugador
+		do {
+			for (int i = 0; i < jugadores.length; i++) {
+				if (!jugadores[i].isTerminado()) {
+					System.out.println(jugadores[i].getNombre());
+					jugadores[i].tirarDado();
+					if (jugadores[i].isTerminado()) {
+						jugadores[i].setPodium(getMaximoValorEnPodium(jugadores) + 1);
+						System.out.println("\n\n\tHAS GANADO EL JUEGO DE LA OCA");
 					}
 				}
 			}
-		}while(numeroJugadoresTerminados < numeroJugadores);
+		} while (!estaJuegoTerminado(jugadores));
+	
+		
+		// Imprimo array de jugadores, ordenándolo previamente
+		ordenaArrayJugadoresPorPodium(jugadores);
+		System.out.println("\n\nPodium de jugadores");
+		for (int i = 0; i < jugadores.length; i++) {
+			System.out.println(jugadores[i].toString());
+		}
+	}
+
+	
+	
+	
+	/**
+	 * 
+	 * @param jugadores
+	 */
+	private static void ordenaArrayJugadoresPorPodium (Jugador jugadores[]) {
+		// Ordenación por el método de la burbuja, desde la derecha
+		for (int i = jugadores.length-1; i > 0; i--) {
+			for (int j = 0; j < i; j++) {
+				if (jugadores[j].getPodium() > jugadores[j+1].getPodium()) {
+					Jugador aux = jugadores[j];
+					jugadores[j] = jugadores[j+1];
+					jugadores [j+1] = aux;
+				}
+			}
+		}		
+	}
+	
+	
+	
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public static int getMaximoValorEnPodium (Jugador jugadores[]) {
+		int maxValor = 0;
+		
+		if (jugadores.length > 0) {
+			maxValor = jugadores[0].getPodium();
+			for (int i = 1; i < jugadores.length; i++) {
+				if (jugadores[i].getPodium() > maxValor) {
+					maxValor = jugadores[i].getPodium();
+				}
+			}
+		}
+		return maxValor;
+	}
+	
+	
+	
+	/**
+	 * 
+	 * @return
+	 */
+	private static boolean estaJuegoTerminado (Jugador jugadores[]) {
+		for (int i = 0; i < jugadores.length; i++) {
+			if (!jugadores[i].isTerminado()) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
