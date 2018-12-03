@@ -46,7 +46,7 @@ public class ColeccionAntiguedades {
 						break;
 				}
 				
-				antiguedad.setAñoDeFabricacion(Integer.parseInt(JOptionPane.showInputDialog("Introduzca año de fabricacion:")));
+				antiguedad.setA�oDeFabricacion(Integer.parseInt(JOptionPane.showInputDialog("Introduzca año de fabricacion:")));
 				antiguedad.setPrecioDeVenta(Float.parseFloat(JOptionPane.showInputDialog("Introduzca el precio de venta:")));
 				antiguedad.setOrigen(JOptionPane.showInputDialog("Introduzca origen:"));
 				JOptionPane.showMessageDialog(null,"Caracteristicas de " + antiguedad);

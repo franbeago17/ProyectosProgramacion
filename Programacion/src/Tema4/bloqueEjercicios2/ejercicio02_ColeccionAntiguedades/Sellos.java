@@ -22,8 +22,8 @@ public class Sellos extends Antiguedades {
 	 * @param epoca
 	 * @param fabricante
 	 */
-	public Sellos(int añoDeFabricacion, String origen, float precioDeVenta, int epoca, String fabricante) {
-		super(añoDeFabricacion, origen, precioDeVenta);
+	public Sellos(int a�oDeFabricacion, String origen, float precioDeVenta, int epoca, String fabricante) {
+		super(a�oDeFabricacion, origen, precioDeVenta);
 		this.epoca= epoca;
 		this.fabricante= fabricante;
 	}
@@ -48,7 +48,7 @@ public class Sellos extends Antiguedades {
 	@Override
 	public String toString() {
 		return "Sellos\nEpoca=" + epoca + "\nFabricante=" + fabricante + "\nAño de fabricacion="
-				+ getAñoDeFabricacion() + "\nOrigen=" + getOrigen() + "\nPrecio de venta=" + getPrecioDeVenta();
+				+ getA�oDeFabricacion() + "\nOrigen=" + getOrigen() + "\nPrecio de venta=" + getPrecioDeVenta();
 	}
 	
 	

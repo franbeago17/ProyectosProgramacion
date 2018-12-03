@@ -20,8 +20,8 @@ public class Joyas extends Antiguedades {
 	 * @param precioDeVenta
 	 * @param materialFabricacion
 	 */
-	public Joyas(int añoDeFabricacion, String origen, float precioDeVenta, String materialFabricacion) {
-		super(añoDeFabricacion, origen, precioDeVenta);
+	public Joyas(int a�oDeFabricacion, String origen, float precioDeVenta, String materialFabricacion) {
+		super(a�oDeFabricacion, origen, precioDeVenta);
 		this.materialFabricacion= materialFabricacion;
 		
 	}
@@ -36,7 +36,7 @@ public class Joyas extends Antiguedades {
 
 	@Override
 	public String toString() {
-		return "Joyas\nMaterial de fabricacion=" + materialFabricacion + "\nAño de fabricacion=" + getAñoDeFabricacion()
+		return "Joyas\nMaterial de fabricacion=" + materialFabricacion + "\nAño de fabricacion=" + getA�oDeFabricacion()
 				+ "\nOrigen=" + getOrigen() + "\nPrecio de venta=" + getPrecioDeVenta();
 	}
 

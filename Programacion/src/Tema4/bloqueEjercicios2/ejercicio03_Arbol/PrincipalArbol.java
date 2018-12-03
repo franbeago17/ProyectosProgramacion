@@ -25,8 +25,9 @@ public class PrincipalArbol {
 			System.out.println("Hoja: " + componente.getNombre());;
 		}
 		if (componente instanceof Rama) {
-			recorreComponente (();
+			recorreComponente (componente);
 		}
+		return recorreComponente(componente);
 		
 	}
 }

@@ -24,8 +24,8 @@ public class Mascaras extends Antiguedades {
 	 * @param material
 	 * @param antiguedad
 	 */
-	public Mascaras(int añoDeFabricacion, String origen, float precioDeVenta, String tribuPerteneciente, String material, int antiguedad) {
-		super(añoDeFabricacion, origen, precioDeVenta);
+	public Mascaras(int a�oDeFabricacion, String origen, float precioDeVenta, String tribuPerteneciente, String material, int antiguedad) {
+		super(a�oDeFabricacion, origen, precioDeVenta);
 		this.tribuPerteneciente= tribuPerteneciente;
 		this.material= material;
 		this.antiguedad= antiguedad;
@@ -60,7 +60,7 @@ public class Mascaras extends Antiguedades {
 	@Override
 	public String toString() {
 		return "Mascaras\nTribu perteneciente=" + tribuPerteneciente + "\nMaterial=" + material + "\nAntiguedad="
-				+ antiguedad + "\nAño de fabricacion=" + getAñoDeFabricacion() + "\nOrigen=" + getOrigen()
+				+ antiguedad + "\nAño de fabricacion=" + getA�oDeFabricacion() + "\nOrigen=" + getOrigen()
 				+ "\nPrecio de venta=" + getPrecioDeVenta();
 	}
 	

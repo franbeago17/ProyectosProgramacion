@@ -22,8 +22,8 @@ public class Libros extends Antiguedades {
 	 * @param autor
 	 * @param titulo
 	 */
-	public Libros(int añoDeFabricacion, String origen, float precioDeVenta, String autor, String titulo) {
-		super(añoDeFabricacion, origen, precioDeVenta);
+	public Libros(int a�oDeFabricacion, String origen, float precioDeVenta, String autor, String titulo) {
+		super(a�oDeFabricacion, origen, precioDeVenta);
 		this.autor= autor;
 		this.titulo= titulo;
 		
@@ -48,7 +48,7 @@ public class Libros extends Antiguedades {
 
 	@Override
 	public String toString() {
-		return "Libros\nAutor=" + autor + "\nTitulo=" + titulo + "\nAño de fabricacion=" + getAñoDeFabricacion()
+		return "Libros\nAutor=" + autor + "\nTitulo=" + titulo + "\nAño de fabricacion=" + getA�oDeFabricacion()
 				+ "\nOrigen=" + getOrigen() + "\nPrecio de venta=" +getPrecioDeVenta();
 	}
 	
