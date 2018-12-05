@@ -2,6 +2,7 @@ package Tema4.EjercicioElAhorcado;
 
 import java.awt.Graphics;
 
+import javax.print.attribute.standard.RequestingUserName;
 import javax.swing.JOptionPane;
 
 public class Juego {
@@ -15,13 +16,19 @@ public class Juego {
 	private String aux[];
 	private static String intentoJugador;
 	private static char guiones[];
+	private static String hint = "hint";
+	private static String godMode = "GodMode";
+	private static String navidad = "Navidad";
+	private boolean boolGodMode = false;
+	private boolean boolHint = false;
+	private String palabrasNavidad[] = new String[] {"melchor", "gaspar", "baltasar", "regalo", "nieve", "santa", "trineo", "renos", "nochebuena", "nochevieja", "uvas", "campanadas", "fiesta", "cotillon" };
 	
 	/**
 	 * 
 	 * @param palabraGenerada
 	 */
 	public void empezarJuego () {
-		
+	
 		numeroPalabraAleatoria=(int) Math.round(Math.random() * (palabras.length - 1)); // Pedimos palabra aleatoria del array.
 		palabraGenerada = palabras[numeroPalabraAleatoria];
 		aux = new String[fallosMax];
@@ -39,6 +46,9 @@ public class Juego {
 		
 		do {
 			intentoJugador = JOptionPane.showInputDialog("Introduzca una palabra o letra."); // Pedimos al jugador una palabra o letra
+			
+			//if (!intentoJugador.equals(navidad)) {
+				
 			// si no analizamos la longitud de la palabra y si es una letra;
 			if (intentoJugador.length() == 1) {
 				System.out.println("\n");
@@ -47,11 +57,10 @@ public class Juego {
 					char charJugador = intentoJugador.charAt(0) ;
 					if (charJugador == palabraGenerada.charAt(i)) { // Si la letra coincide con alguna de la palabra
 						guiones[i] = charJugador;
-						Ventana.getVentana().repaint();
 						fallo = false; // Decimos que no hay fallo
 					}
 				}
-				if (fallo == true) { // Si hay fallo
+				if (fallo == true && boolGodMode!=true) { // Si hay fallo
 					aux[fallos] = intentoJugador;
 					fallos++; // Añade un fallo
 					Ventana.getVentana().repaint();
@@ -61,23 +70,49 @@ public class Juego {
 				}
 			}
 			else {
-				if (!intentoJugador.equals(palabraGenerada) /*|| (!(pista() == true))*/) {
+				if (!intentoJugador.equals(palabraGenerada) || intentoJugador.equals(hint) && boolGodMode!=true) {
+					aux[fallos] = intentoJugador;
 					fallos++; // Si la palabra no es igual añadimos un fallo
 					Ventana.getVentana().repaint();
 				}
 			}
 			System.out.print("\n Letras ya usadas: ");
-			// 
-			for (int i = 0; i < fallosMax; i++) {
-				System.out.print(" "+aux[i]);
+			if (boolGodMode!=true) {
+				for (int i = 0; i < fallosMax; i++) {
+					System.out.print(" "+aux[i]);
+					Ventana.getVentana().repaint();
+				}
 			}
+			// Creamos el CHEAT 1 (hint) 
+			if (intentoJugador.equals(hint) && boolHint == false) {
+				System.out.print("\n");
+				JOptionPane.showMessageDialog(null, "Has activado el cheat pista.");
+				int numAleatorio = (int) Math.round(Math.random()*palabraGenerada.length());
+				char charJugador = palabraGenerada.charAt(numAleatorio);
+				guiones[numAleatorio]=charJugador;
+				for (int i = 0; i < palabraGenerada.length(); i++) {
+					if (guiones[numAleatorio]== palabraGenerada.charAt(i)) {
+						guiones[i] = guiones[numAleatorio];
+						Ventana.getVentana().repaint();
+					}
+					System.out.print(guiones[i] + " ");
+				}
+				boolHint = true;
+			}
+			// Creamos el CHEAT 2 (godMode)
+			if (intentoJugador.equals(godMode)) {
+				boolGodMode=true;
+				JOptionPane.showMessageDialog(null, "Has activado el cheat GodMode.\nA partir de ahora tus fallos no seran contabilizados");
+				Ventana.getVentana().repaint();
+			}
+			
 		// Realizamos el bucle mientras que la palabra no sea igual, los fallos no sean los máximos o las letras no estén completas.
 		}while(!((intentoJugador.equals(palabraGenerada)) || (fallos >= fallosMax) || (guionesCompletos(guiones))));
 		
 		if (intentoJugador.equals(palabraGenerada) || (guionesCompletos(guiones))){
-			/*for (int i = 0; i < palabraGenerada.length(); i++) {
+			for (int i = 0; i < palabraGenerada.length(); i++) {
 				guiones[i] = intentoJugador.charAt(i);
-			}*/
+			}
 			System.out.println("\n\n\t\t HAS GANADO ENHORABUENA!!");
 			Ventana.getVentana().repaint();
 		}
@@ -86,19 +121,21 @@ public class Juego {
 		}
 	}
 	
-	/*public static boolean pista() {
-		String hint = "hint";
-		int numAleatorio = (int) Math.round(Math.random()*palabraGenerada.length());
-		if (intentoJugador.equals(hint)) {
+	/*public static void pista() {
+		if (intentoJugador.equals(hint) && boolHint == false) {
+			JOptionPane.showMessageDialog(null, "Has activado el cheat pista.");
+			int numAleatorio = (int) Math.round(Math.random()*palabraGenerada.length());
+			char charJugador = palabraGenerada.charAt(numAleatorio);
+			guiones[numAleatorio]=charJugador;
 			for (int i = 0; i < palabraGenerada.length(); i++) {
-				if (intentoJugador.charAt(numAleatorio) == palabraGenerada.charAt(i)) {
-					guiones[i] = intentoJugador.charAt(numAleatorio);
+				if (guiones[numAleatorio]== palabraGenerada.charAt(i)) {
+					guiones[i] = guiones[numAleatorio];
 					Ventana.getVentana().repaint();
-					return true;
 				}
+				System.out.println("" + guiones[i] + " ");
 			}
+			boolHint = true;
 		}
-		return false;
 	}*/
 	
 
@@ -178,5 +215,19 @@ public class Juego {
 	public String getIntentoJugador() {
 		return intentoJugador;
 	}
+
+	
+	
+	/**
+	 * @return the navidad
+	 */
+	public static String getNavidad() {
+		return navidad;
+	}
+
+	
+	
+	
+	
 	
 }

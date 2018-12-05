@@ -57,7 +57,8 @@ public class Ventana extends Canvas {
 	@Override
 	public void paint(Graphics g) {
 		
-		// Pintamos la imagen del tablero sobre la pantalla
+			
+		// Pintamos la imagen sobre la pantalla
 		g.drawImage(getImagen("durango-y-las-peliculas-del-viejo-oeste.jpg"), 0, 0, this);
 				
 		// Pintando el cuerpo
@@ -164,12 +165,48 @@ public class Ventana extends Canvas {
 			g.drawString("La palabra era: " + Juego.getJuego().getPalabraGenerada(), 390, 230);
 		}
 		g.setColor(Color.black);
+		
 		String strIntentoJugador = Juego.getJuego().getIntentoJugador();
 		String strPalabraGenerada = Juego.getJuego().getPalabraGenerada();
-		if (strPalabraGenerada.equals(strIntentoJugador) || Juego.getJuego().guionesCompletos(Juego.getJuego().getGuiones())) {
+		if (strPalabraGenerada.equals(strIntentoJugador) || Juego.guionesCompletos(Juego.getJuego().getGuiones())) {
 			g.drawString("ENHORABUENA!!", 390, 200);
 			g.drawString("Has ganado!", 390, 230);
 		}
+		
+		/*if (!strIntentoJugador.equals(Juego.getNavidad())) {
+			// Pintamos la nueva imagen sobre la pantalla
+			g.drawImage(getImagen("398549-blackangel.jpg"), 0, 0, this);
+			
+			// Pintando el cuerpo
+			g.setColor(Color.red);
+			g.fillRect(295, 170, 51, 110);
+			
+			// Pintando los brazos
+			g.setColor(Color.red);
+			g.fillRect(268, 170, 25, 120);
+			
+			g.setColor(Color.red);
+			g.fillRect(348, 170, 25, 120);
+			
+			// Pintando las piernas
+			g.setColor(Color.red);
+			g.fillRect(295, 282, 24, 120);
+			
+			g.setColor(Color.red);
+			g.fillRect(322, 282, 24, 120);
+			
+			// Pintando la cabeza
+			g.setColor(new Color(247, 219, 175));
+			g.fillOval(285, 100, 70, 70);
+			
+			// Pintando la cuerda
+			g.setColor(new Color(155, 119, 57));
+			g.fillRect(318, 40, 8, 60);
+			
+			g.setColor(new Color(155, 119, 57));
+			g.fillRect(306, 168, 30, 8);
+			
+		}*/
 	}
 	
 	
