@@ -8,20 +8,23 @@ import javax.swing.JOptionPane;
 public class Juego {
 	
 	private static Juego juego = null;
-	private String palabras[] = new String[] {"aburrido", "ácido", "alegre", "alto", "amargo", "ancho", "atrevido", "azul", "bajo", "blanco", "blando", "bonito", "buen", "caliente", "capaz", "central", "chungo", "común", "conocido", "contento", "corto", "débil", "delgado", "derecho", "diferente", "difícil", "dulce", "duro", "enfermo", "estrecho", "exterior", "fácil", "falso", "famoso", "feo", "final", "fresco", "frío", "fuerte", "gordo", "grande", "guay", "guapo", "húmedo", "igual", "imposible", "interesante", "interior", "inútil", "izquierdo", "joven", "largo", "lento", "listo", "malo", "masivo", "mayor", "mejor", "menor", "mucho", "muerto", "musical", "nacional", "natural", "negro", "nuevo", "peor", "pequeño", "perfecto", "pobre", "poco", "popular", "posible", "primero", "principal", "próximo", "rápido", "raro", "real", "recto", "rico", "rojo", "salado", "sano", "seco", "segundo", "simple", "sinvergüenza", "social", "solo", "soso", "tímido", "tonto", "triste", "útil", "verdadero", "verde", "viejo", "vivo", "crema", "explosión", "navaja", "universidad", "llaves", "papá", "catre", "escuela", "codo", "mapa", "lima", "edificio", "hojas", "granizo", "mano", "música", "habitación", "abuelo", "templo", "plato", "botella", "casa", "planeta", "metal", "mono", "petróleo", "debate", "ruído", "herramienta", "anteojos", "zapato", "ojo", "ciente", "diente", "buzo", "puerta", "ensalada", "candidato", "diario", "hierro", "barco", "tecla", "departamento", "hipopótamo", "árbol", "discurso", "rúcula", "lentejas", "reloj", "desodorante", "montañas", "moño", "partido", "fiesta", "café", "guitarra", "martillo", "lapicera", "letra", "librería", "rueda", "camisa", "sillón", "teclado", "pantalla", "tenedor", "pantalla", "tenedor", "agua", "cohete", "césped", "parlante", "pestaña", "monitor", "hombre", "velero", "palo", "lentes", "nube", "castillo", "libro", "televisor", "teléfono", "percha", "anillo", "pared", "cartas", "impresora", "luces", "bomba", "bolígrafo", "gobierno", "enano", "persona", "guantes", "proyector", "muela", "remate", "cuaderno", "taladro", "chocolate", "caramelos", "angustia", "lluvia", "corbata", "periódico", "planta", "chupete", "oficina", "persiana", "silla", "pradera", "zoológico", "deporte", "recipiente", "fotografía", "ave", "refugio", "pantalón", "carne", "nieve", "humedad", "pistola", "tristeza", "sofá", "cama", "campera", "coche", "cinturón", "famoso", "madera", "piso", "maletín", "diputado", "cuchillo", "candado", "luz", "ordenador", "radio", "cuadro", "calor", "teatro", "bala", "auriculares", "plástico", "libro", "aluminio", "agujeta", "sonido", "perro", "pelo", "felicidad", "servilleta", "sol", "estadística", "mensaje", "rey", "presidencia", "colegio", "lámpara", "flor", "tornillo", "abuela", "satélite"}; // Creamos el array de palabras.
+	private String palabras[] = new String[] {"aburrido", "ácido", "alegre", "alto", "amargo", "ancho", "atrevido", "azul", "bajo", "blanco", "blando", "bonito", "buen", "caliente", "capaz", "central", "chungo", "común", "conocido", "contento", "corto", "débil", "delgado", "derecho", "diferente", "difícil", "dulce", "duro", "enfermo", "estrecho", "exterior", "fácil", "falso", "famoso", "feo", "final", "fresco", "frío", "fuerte", "gordo", "grande", "guay", "guapo", "húmedo", "igual", "imposible", "interesante", "interior", "inútil", "izquierdo", "joven", "largo", "lento", "listo", "malo", "masivo", "mayor", "mejor", "menor", "mucho", "muerto", "musical", "nacional", "natural", "negro", "nuevo", "peor", "pequeño", "perfecto", "pobre", "poco", "popular", "posible", "primero", "principal", "próximo", "rápido", "raro", "real", "recto", "rico", "rojo", "salado", "sano", "seco", "segundo", "simple", "sinvergüenza", "social", "solo", "soso", "tímido", "tonto", "triste", "útil", "verdadero", "verde", "viejo", "vivo", "crema", "explosión", "navaja", "universidad", "llaves", "papá", "catre", "escuela", "codo", "mapa", "lima", "edificio", "hojas", "granizo", "mano", "música", "habitación", "abuelo", "templo", "plato", "botella", "casa", "planeta", "metal", "mono", "petróleo", "debate", "ruído", "herramienta", "anteojos", "zapato", "ojo", "cliente", "diente", "buzo", "puerta", "ensalada", "candidato", "diario", "hierro", "barco", "tecla", "departamento", "hipopótamo", "árbol", "discurso", "rúcula", "lentejas", "reloj", "desodorante", "montañas", "moño", "partido", "fiesta", "café", "guitarra", "martillo", "lapicera", "letra", "librería", "rueda", "camisa", "sillón", "teclado", "pantalla", "tenedor", "pantalla", "tenedor", "agua", "cohete", "césped", "parlante", "pestaña", "monitor", "hombre", "velero", "palo", "lentes", "nube", "castillo", "libro", "televisor", "teléfono", "percha", "anillo", "pared", "cartas", "impresora", "luces", "bomba", "bolígrafo", "gobierno", "enano", "persona", "guantes", "proyector", "muela", "remate", "cuaderno", "taladro", "chocolate", "caramelos", "angustia", "lluvia", "corbata", "periódico", "planta", "chupete", "oficina", "persiana", "silla", "pradera", "zoológico", "deporte", "recipiente", "fotografía", "ave", "refugio", "pantalón", "carne", "nieve", "humedad", "pistola", "tristeza", "sofá", "cama", "campera", "coche", "cinturón", "famoso", "madera", "piso", "maletín", "diputado", "cuchillo", "candado", "luz", "ordenador", "radio", "cuadro", "calor", "teatro", "bala", "auriculares", "plástico", "libro", "aluminio", "agujeta", "sonido", "perro", "pelo", "felicidad", "servilleta", "sol", "estadística", "mensaje", "rey", "presidencia", "colegio", "lámpara", "flor", "tornillo", "abuela", "satélite"}; // Creamos el array de palabras.
 	private int numeroPalabraAleatoria;
 	private static String palabraGenerada;
 	private int fallos = 0;
 	private int fallosMax= 6;
 	private String aux[];
+	String auxNavidad[];
 	private static String intentoJugador;
 	private static char guiones[];
+	char guionesNavidad[];
 	private static String hint = "hint";
 	private static String godMode = "GodMode";
 	private static String navidad = "Navidad";
 	private boolean boolGodMode = false;
 	private boolean boolHint = false;
 	private String palabrasNavidad[] = new String[] {"melchor", "gaspar", "baltasar", "regalo", "nieve", "santa", "trineo", "renos", "nochebuena", "nochevieja", "uvas", "campanadas", "fiesta", "cotillon" };
+	private static boolean boolNavidad = false;
 	
 	/**
 	 * 
@@ -46,9 +49,8 @@ public class Juego {
 		
 		do {
 			intentoJugador = JOptionPane.showInputDialog("Introduzca una palabra o letra."); // Pedimos al jugador una palabra o letra
-			
-			//if (!intentoJugador.equals(navidad)) {
 				
+			boolNavidad = false;
 			// si no analizamos la longitud de la palabra y si es una letra;
 			if (intentoJugador.length() == 1) {
 				System.out.println("\n");
@@ -86,7 +88,7 @@ public class Juego {
 			// Creamos el CHEAT 1 (hint) 
 			if (intentoJugador.equals(hint) && boolHint == false) {
 				System.out.print("\n");
-				JOptionPane.showMessageDialog(null, "Has activado el cheat pista.");
+				JOptionPane.showMessageDialog(null, "Has activado el cheat pista,  se te implementará un fallo.");
 				int numAleatorio = (int) Math.round(Math.random()*palabraGenerada.length());
 				char charJugador = palabraGenerada.charAt(numAleatorio);
 				guiones[numAleatorio]=charJugador;
@@ -105,12 +107,31 @@ public class Juego {
 				JOptionPane.showMessageDialog(null, "Has activado el cheat GodMode.\nA partir de ahora tus fallos no seran contabilizados");
 				Ventana.getVentana().repaint();
 			}
+			Ventana.getVentana().repaint();
+			if (intentoJugador.equals(navidad)) {
+				boolNavidad=true;
+				numeroPalabraAleatoria=(int) Math.round(Math.random() * (palabrasNavidad.length - 1)); // Pedimos palabra aleatoria del array.
+				palabraGenerada = palabrasNavidad[numeroPalabraAleatoria];
+				System.out.println("Palabra: " + palabraGenerada);
+				auxNavidad = new String[fallosMax];
+				guionesNavidad = new char[palabraGenerada.length()];
+				
+				System.out.println("palabra: " + palabraGenerada);
+				
+				for (int i = 0; i < fallosMax; i++) {
+					auxNavidad[i]= "_";
+				}
+				for (int i = 0; i < palabraGenerada.length(); i++) {
+					guionesNavidad[i] = '_'; // Imprimimos los guiones.
+					System.out.print(guionesNavidad[i]+" ");
+				}
+				Ventana.getVentana().repaint();
+			}
 			
 		// Realizamos el bucle mientras que la palabra no sea igual, los fallos no sean los máximos o las letras no estén completas.
 		}while(!((intentoJugador.equals(palabraGenerada)) || (fallos >= fallosMax) || (guionesCompletos(guiones))));
-		
 		if (intentoJugador.equals(palabraGenerada) || (guionesCompletos(guiones))){
-			for (int i = 0; i < palabraGenerada.length(); i++) {
+			for (int i = 1; i < palabraGenerada.length(); i++) {
 				guiones[i] = intentoJugador.charAt(i);
 			}
 			System.out.println("\n\n\t\t HAS GANADO ENHORABUENA!!");
@@ -224,6 +245,36 @@ public class Juego {
 	public static String getNavidad() {
 		return navidad;
 	}
+
+	
+	/**
+	 * @return the boolNavidad
+	 */
+	public static boolean isBoolNavidad() {
+		return boolNavidad;
+	}
+
+	
+	/**
+	 * @return the auxNavidad
+	 */
+	public String[] getAuxNavidad() {
+		return auxNavidad;
+	}
+
+	
+
+	/**
+	 * @return the guionesNavidad
+	 */
+	public char[] getGuionesNavidad() {
+		return guionesNavidad;
+	}
+
+
+	
+	
+	
 
 	
 	

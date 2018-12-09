@@ -22,6 +22,8 @@ public class Ventana extends Canvas {
 	public static final int HEIGHT = 480;
 	public static Ventana ventana = null;
 	private int fallos = 0;
+	String strIntentoJugador = "";
+	String strPalabraGenerada = "";
 	
 
 	public Ventana () {
@@ -56,7 +58,6 @@ public class Ventana extends Canvas {
 	 */
 	@Override
 	public void paint(Graphics g) {
-		
 			
 		// Pintamos la imagen sobre la pantalla
 		g.drawImage(getImagen("durango-y-las-peliculas-del-viejo-oeste.jpg"), 0, 0, this);
@@ -109,7 +110,7 @@ public class Ventana extends Canvas {
 		g.setColor(Color.black);
 		g.setFont(new Font("Console", Font.BOLD, 20));
 		// Pintando guiones de la palabra generada
-		g.drawString("Palabra: " + palabra, 400, 100);
+		g.drawString("Palabra: " + palabra, 370, 100);
 		
 		for (int i=0; i<Juego.getJuego().getAux().length; i++) {
 			letrasUsadas += Juego.getJuego().getAux()[i] + " ";
@@ -166,14 +167,14 @@ public class Ventana extends Canvas {
 		}
 		g.setColor(Color.black);
 		
-		String strIntentoJugador = Juego.getJuego().getIntentoJugador();
-		String strPalabraGenerada = Juego.getJuego().getPalabraGenerada();
+		strIntentoJugador = Juego.getJuego().getIntentoJugador();
+		strPalabraGenerada = Juego.getJuego().getPalabraGenerada();
 		if (strPalabraGenerada.equals(strIntentoJugador) || Juego.guionesCompletos(Juego.getJuego().getGuiones())) {
 			g.drawString("ENHORABUENA!!", 390, 200);
 			g.drawString("Has ganado!", 390, 230);
 		}
 		
-		/*if (!strIntentoJugador.equals(Juego.getNavidad())) {
+		if (Juego.isBoolNavidad() == true) {
 			// Pintamos la nueva imagen sobre la pantalla
 			g.drawImage(getImagen("398549-blackangel.jpg"), 0, 0, this);
 			
@@ -206,7 +207,35 @@ public class Ventana extends Canvas {
 			g.setColor(new Color(155, 119, 57));
 			g.fillRect(306, 168, 30, 8);
 			
-		}*/
+			// Pintando el mástil
+			g.setColor(new Color(81, 64, 35));
+			g.fillRect(3, 395, 150, 50);
+			
+			g.setColor(new Color(81, 64, 35));
+			g.fillRect(60, 30, 40, 370);
+			
+			g.setColor(new Color(81, 64, 35));
+			g.fillRect(40, 9, 340, 30);
+			
+			palabra = "";
+			letrasUsadas = "";
+			for (int i=0; i<Juego.getJuego().getGuionesNavidad().length; i++) {
+				palabra += Juego.getJuego().getGuionesNavidad()[i] + " ";
+			}
+			g.setColor(Color.black);
+			g.setFont(new Font("Console", Font.BOLD, 20));
+			// Pintando guiones de la palabra generada
+			g.drawString("Palabra: " + palabra, 370, 100);
+			
+			for (int i=0; i<Juego.getJuego().getAuxNavidad().length; i++) {
+				letrasUsadas += Juego.getJuego().getAuxNavidad()[i] + " ";
+			}
+			g.setFont(new Font("Console", Font.BOLD, 20));
+			// Pîntamos los fallos
+			g.drawString("Usado: " + letrasUsadas, 270, 440);
+			
+			fallos = Juego.getJuego().getFallos();
+		}
 	}
 	
 	
