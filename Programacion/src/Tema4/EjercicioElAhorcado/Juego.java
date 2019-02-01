@@ -93,7 +93,7 @@ public class Juego {
 				char charJugador = palabraGenerada.charAt(numAleatorio);
 				guiones[numAleatorio]=charJugador;
 				for (int i = 0; i < palabraGenerada.length(); i++) {
-					if (guiones[numAleatorio]== palabraGenerada.charAt(i)) {
+					if (guiones[numAleatorio] == palabraGenerada.charAt(i)) {
 						guiones[i] = guiones[numAleatorio];
 						Ventana.getVentana().repaint();
 					}
@@ -108,6 +108,7 @@ public class Juego {
 				Ventana.getVentana().repaint();
 			}
 			Ventana.getVentana().repaint();
+			
 			if (intentoJugador.equals(navidad)) {
 				boolNavidad=true;
 				numeroPalabraAleatoria=(int) Math.round(Math.random() * (palabrasNavidad.length - 1)); // Pedimos palabra aleatoria del array.
@@ -126,11 +127,79 @@ public class Juego {
 					System.out.print(guionesNavidad[i]+" ");
 				}
 				Ventana.getVentana().repaint();
+				
+				if (intentoJugador.length() == 1) {
+					System.out.println("\n");
+					boolean fallo = true;
+					for (int i = 0; i < palabraGenerada.length(); i++) {
+						char charJugador = intentoJugador.charAt(0) ;
+						if (charJugador == palabraGenerada.charAt(i)) { // Si la letra coincide con alguna de la palabra
+							guiones[i] = charJugador;
+							fallo = false; // Decimos que no hay fallo
+						}
+					}
+					if (fallo == true && boolGodMode!=true) { // Si hay fallo
+						auxNavidad[fallos] = intentoJugador;
+						fallos++; // Añade un fallo
+						Ventana.getVentana().repaint();
+					}
+					for (int i = 0; i < palabraGenerada.length(); i++) {
+						System.out.print(guionesNavidad[i]+" "); // Imprime los guiones
+					}
+				}
+				else {
+					if (!intentoJugador.equals(palabraGenerada) || intentoJugador.equals(hint) && boolGodMode!=true) {
+						auxNavidad[fallos] = intentoJugador;
+						fallos++; // Si la palabra no es igual añadimos un fallo
+						Ventana.getVentana().repaint();
+					}
+				}
+				System.out.print("\n Letras ya usadas: ");
+				if (boolGodMode!=true) {
+					for (int i = 0; i < fallosMax; i++) {
+						System.out.print(" "+auxNavidad[i]);
+						Ventana.getVentana().repaint();
+					}
+				}
+				// Creamos el CHEAT 1 (hint) 
+				if (intentoJugador.equals(hint) && boolHint == false) {
+					System.out.print("\n");
+					JOptionPane.showMessageDialog(null, "Has activado el cheat pista,  se te implementará un fallo.");
+					int numAleatorio = (int) Math.round(Math.random()*(palabraGenerada.length()-1)+1);
+					char charJugador = palabraGenerada.charAt(numAleatorio);
+					guionesNavidad[numAleatorio]=charJugador;
+					for (int i = 0; i < palabraGenerada.length(); i++) {
+						if (guionesNavidad[numAleatorio]== palabraGenerada.charAt(i)) {
+							guionesNavidad[i] = guionesNavidad[numAleatorio];
+							Ventana.getVentana().repaint();
+						}
+						System.out.print(guionesNavidad[i] + " ");
+					}
+					boolHint = true;
+				}
+				// Creamos el CHEAT 2 (godMode)
+				if (intentoJugador.equals(godMode)) {
+					boolGodMode=true;
+					JOptionPane.showMessageDialog(null, "Has activado el cheat GodMode.\nA partir de ahora tus fallos no seran contabilizados");
+					Ventana.getVentana().repaint();
+				}
+				Ventana.getVentana().repaint();
+				
+				if (intentoJugador.equals(palabraGenerada) || (guionesCompletos(guionesNavidad) || intentoJugador.equals(navidad))){
+					for (int i = 1; i < palabraGenerada.length(); i++) {
+						guionesNavidad[i] = intentoJugador.charAt(i);
+					}
+					System.out.println("\n\n\t\t HAS GANADO ENHORABUENA!!");
+					Ventana.getVentana().repaint();
+				}
+				else {
+					System.out.println("\n\n\t\t HAS PERDIDO MATAO" + "\n\n La palabra era "+ palabraGenerada);
+				}
 			}
 			
 		// Realizamos el bucle mientras que la palabra no sea igual, los fallos no sean los máximos o las letras no estén completas.
 		}while(!((intentoJugador.equals(palabraGenerada)) || (fallos >= fallosMax) || (guionesCompletos(guiones))));
-		if (intentoJugador.equals(palabraGenerada) || (guionesCompletos(guiones))){
+		/*if (intentoJugador.equals(palabraGenerada) || (guionesCompletos(guiones))){
 			for (int i = 1; i < palabraGenerada.length(); i++) {
 				guiones[i] = intentoJugador.charAt(i);
 			}
@@ -139,7 +208,7 @@ public class Juego {
 		}
 		else {
 			System.out.println("\n\n\t\t HAS PERDIDO MATAO" + "\n\n La palabra era "+ palabraGenerada);
-		}
+		}*/
 	}
 	
 	/*public static void pista() {
@@ -270,15 +339,4 @@ public class Juego {
 	public char[] getGuionesNavidad() {
 		return guionesNavidad;
 	}
-
-
-	
-	
-	
-
-	
-	
-	
-	
-	
 }

@@ -25,8 +25,6 @@ public class MenuExamen {
 			JOptionPane.showMessageDialog(null,"ERROR!! Reinicie el preograma.");
 			System.exit(0);
 		}
-		float num1=Float.parseFloat(JOptionPane.showInputDialog("Introduzca primer numero: "));
-		float num2=Float.parseFloat(JOptionPane.showInputDialog("Introduzca el segundo numero: "));
 		String mensaje="";
 		
 		switch (opcion) {

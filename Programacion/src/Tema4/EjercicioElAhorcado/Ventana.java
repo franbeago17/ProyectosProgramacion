@@ -172,6 +172,7 @@ public class Ventana extends Canvas {
 		if (strPalabraGenerada.equals(strIntentoJugador) || Juego.guionesCompletos(Juego.getJuego().getGuiones())) {
 			g.drawString("ENHORABUENA!!", 390, 200);
 			g.drawString("Has ganado!", 390, 230);
+			g.drawString("La palabra es " + Juego.getJuego().getPalabraGenerada() , 390, 260);
 		}
 		
 		if (Juego.isBoolNavidad() == true) {
