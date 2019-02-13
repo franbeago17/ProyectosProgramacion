@@ -17,6 +17,7 @@ public class ControladorTeclado extends KeyAdapter {
 	public void keyPressed(KeyEvent event) {
 		super.keyPressed(event);
 		Arkanoid.getInstancia().getNave().keyPressed(event);
+		Arkanoid.getInstancia().getBola().keyPressed(event);
 	}
 
 	/**
@@ -28,5 +29,4 @@ public class ControladorTeclado extends KeyAdapter {
 		Arkanoid.getInstancia().getNave().keyReleased(event);
 	}
 
-	
 }

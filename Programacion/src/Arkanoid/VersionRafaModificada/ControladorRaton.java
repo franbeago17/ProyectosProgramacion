@@ -20,4 +20,14 @@ public class ControladorRaton extends MouseAdapter {
 		Arkanoid.getInstancia().getNave().mouseMoved(event);
 	}
 
+	/**
+	 * Con esto podemos manejar el evento de clic del ratón
+	 */
+	@Override
+	public void mouseClicked(MouseEvent event) {
+		super.mouseClicked(event);
+		Arkanoid.getInstancia().getBola().mouseClicked(event); // Notificamos el clic a la Bola
+	}
+
+	
 }

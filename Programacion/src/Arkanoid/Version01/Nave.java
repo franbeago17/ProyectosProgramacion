@@ -33,6 +33,10 @@ public class Nave extends Objeto {
 	  	if (right) vx = NAVE_SPEED;
 	  }
 	
+	public void collision(Objeto o){
+		
+	}
+	
 	public void keyReleased(KeyEvent e) {
 	   	switch (e.getKeyCode()) {
 			case KeyEvent.VK_LEFT : left = false; break; 

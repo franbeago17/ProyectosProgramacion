@@ -17,7 +17,10 @@ public class Fase01 extends Fase {
 	 */
 	@Override
 	public void inicializaFase() {
-
+		
+		CacheRecursos.getInstancia().playSonido("Oh_mama_csgo.wav");
+		CacheRecursos.getInstancia().playSonido("imperial_march(1).wav");
+		
 	    // Inicializamos los ladrillos
 	    int numLadrillosPosibles = Arkanoid.ANCHO / (Ladrillo.ANCHO + Ladrillo.ESPACIO_ENTRE_LADRILLOS);
 	    int margenIzquierdo = (Arkanoid.ANCHO % (Ladrillo.ANCHO + Ladrillo.ESPACIO_ENTRE_LADRILLOS)) / 2;
@@ -28,7 +31,7 @@ public class Fase01 extends Fase {
 	    // Creamos las filas
 	    for (int i = 0; i < colores.length; i++) {
 	    	for (int j = 0; j < numLadrillosPosibles; j++) {
-		    	this.objetos.add(new Ladrillo(margenIzquierdo + j * (Ladrillo.ANCHO + Ladrillo.ESPACIO_ENTRE_LADRILLOS), 
+		    	this.actores.add(new Ladrillo(margenIzquierdo + j * (Ladrillo.ANCHO + Ladrillo.ESPACIO_ENTRE_LADRILLOS), 
 		    			ESPACIO_SUPERIOR_SOBRE_LADRILLOS + i * (Ladrillo.ALTO + Ladrillo.ESPACIO_ENTRE_LADRILLOS), colores[i]));
 		    }
 	    }

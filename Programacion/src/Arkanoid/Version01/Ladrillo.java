@@ -10,8 +10,10 @@ public class Ladrillo extends Objeto {
 	}
 	
 	public void collision(Objeto o) {
+		super.collision(o);
+		// Si un ladrillo detecta una colisión con un objeto de tipo "Pelota", debe desaparecer
 		if (o instanceof Pelota) {
-		  remove();
+			remove();
 		}
 	}
 }

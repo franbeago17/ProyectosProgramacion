@@ -15,7 +15,9 @@ import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.ldap.StartTlsRequest;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
@@ -34,16 +36,18 @@ public class Arkanoid extends Canvas implements Stage {
 	private SpriteCache spriteCache = new SpriteCache();
 	private List<Objeto> objetos = new ArrayList<Objeto>();
 	private Nave n = new Nave(this);
+	private Pelota p = new Pelota(this);
 	private List<Explosion> explosion = new ArrayList<Explosion>();
+	JFrame ventana = null;
+	boolean initPausa = true;
 	
 	/**
 	 * 
 	 */
 	public Arkanoid() {
-		spriteCache = new SpriteCache();
 		soundCache = new SoundCache();
 
-		JFrame ventana = new JFrame("Invaders");
+		JFrame ventana = new JFrame("Arkanoid");
 		JPanel panel = (JPanel)ventana.getContentPane();
 		setBounds(0,0,Stage.WIDTH,Stage.HEIGHT);
 		panel.setPreferredSize(new Dimension(Stage.WIDTH,Stage.HEIGHT));
@@ -54,10 +58,12 @@ public class Arkanoid extends Canvas implements Stage {
 		ventana.setVisible(true);
 		ventana.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		ventana.addWindowListener( new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
-				System.exit(0);
+				cerrarAplicacion();
 			}
 		});
+		
 		ventana.setResizable(false);
 		createBufferStrategy(2);
 		strategy = getBufferStrategy();
@@ -70,12 +76,20 @@ public class Arkanoid extends Canvas implements Stage {
 			
 			public void keyPressed(KeyEvent e) {
 				n.keyPressed(e);
+				p.keyPressed(e);
 			}
 		});
 		
 		this.addMouseMotionListener(new MouseAdapter() {
 			public void mouseMoved(MouseEvent e) {
 				n.mouseMoved(e);
+				p.mouseMoved(e);
+			}
+		});
+		
+		this.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				p.mouseClicked(e);
 			}
 		});
 	}
@@ -84,7 +98,6 @@ public class Arkanoid extends Canvas implements Stage {
 	 * 
 	 */
 	public void initWorld() {
-	
 		n.setX(Stage.WIDTH/2 - 35);
 	    n.setY(Stage.HEIGHT - 2*n.getHeight());
 	    objetos.add(n);
@@ -95,17 +108,11 @@ public class Arkanoid extends Canvas implements Stage {
 		for (int i = 0; i < 6; i++) {
 			for (int j = 0; j < 13; j++) {
 				Ladrillo l = new Ladrillo(this, i);
-				l.setX(20+j*45);
-				l.setY(20+i*19);
+				l.setX(20+j*46);
+				l.setY(50+i*19);
 				objetos.add(l);
 			}
 		}
-		
-		Pelota p = new Pelota(this);
-	  	p.setX(200);
-	    p.setY(350);
-	    p.setVx(3);
-	    p.setVy(3);
 	    objetos.add(p);
 	    
 	}
@@ -114,6 +121,12 @@ public class Arkanoid extends Canvas implements Stage {
 	 * 
 	 */
 	public void updateWorld() {
+		
+		if (p.getVx() == 0 && p.getVy() == 0) {
+			p.setX(n.getX() + 22);
+			p.setY(n.getY() - n.getHeight() + 8);
+		}
+		
 		for (Objeto objeto : objetos) {
 			objeto.act();
 		}
@@ -146,6 +159,9 @@ public class Arkanoid extends Canvas implements Stage {
         n.act();
 	}
 	
+	/**
+	 * 
+	 */
 	public void checkCollisions() {
 		for (int i = 0; i < objetos.size(); i++) {
 			Objeto o1 = (Objeto)objetos.get(i);
@@ -157,8 +173,6 @@ public class Arkanoid extends Canvas implements Stage {
 		  	if (r1.intersects(r2)) {
 		  		o1.collision(o2);
 		  		o2.collision(o1);
-		  	}
-		  	if (r1.intersects(r2)) {
 		  		soundCache.playSound("Rebote.wav");
 		  	}
 		  }
@@ -170,8 +184,6 @@ public class Arkanoid extends Canvas implements Stage {
 	 */
 	public void paintWorld() {
 		Graphics2D g = (Graphics2D)strategy.getDrawGraphics();
-		//g.setColor(Color.black);
-		//g.fillRect(0,0,getWidth(),getHeight());
 		g.drawImage( spriteCache.getSprite("ImagenFondo.jpg"), 0, 0, this);
 		for (Objeto objeto : objetos) {
 			if (objeto.markedForRemoval == false) {
@@ -221,7 +233,16 @@ public class Arkanoid extends Canvas implements Stage {
 		}
 	}
 	
-	/*private void closeAplication() {
-		String[] 
-	}*/
+	/**
+	 * Al cerrar la aplicación preguntaremos al usuario si está seguro de que desea salir.
+	 */
+	private void cerrarAplicacion() {
+		String [] opciones ={"Aceptar","Cancelar"};
+		int eleccion = JOptionPane.showOptionDialog(ventana,"¿Desea cerrar la aplicación?","Salir de la aplicación",
+		JOptionPane.YES_NO_OPTION,
+		JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
+		if (eleccion == JOptionPane.YES_OPTION) {
+			System.exit(0);
+		}
+	}
 }

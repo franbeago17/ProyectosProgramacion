@@ -1,32 +1,34 @@
 package Arkanoid.VersionRafaModificada;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
+
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Clase que representa a cada ladrillo de los que pondremos sobre la pantalla
  * @author R
  *
  */
-public class Ladrillo extends Objeto {
+public class Ladrillo extends Actor {
 	// Damos un ancho y un alto específico al ladrillo. Suponemos que todos los ladrillos serán iguales
-	public static final int ANCHO = 30;
-	public static final int ALTO = 20;
+	public static final int ANCHO = 48;
+	public static final int ALTO = 24;
 	public static final int ESPACIO_ENTRE_LADRILLOS = 2;
+	private int codigoImagen;
 	
-	// Propiedades específicas de cada ladrillo
-	private Color color = null;
 	
 	/**
 	 * Constructor
 	 */
 	public Ladrillo() {
 		super();
-		spriteActual = null; // El ladrillo se pinta vectorialmente, así que no utilizo ningún sprite
+		
 		this.x = 10;
 		this.y = 10;
-		this.color = Color.WHITE; // Por defecto pongo el ladrillo en color blanco
+		this.ancho = ANCHO;
+		this.alto = ALTO;
+		
 	}
 
 	/**
@@ -35,28 +37,45 @@ public class Ladrillo extends Objeto {
 	 * @param y
 	 * @param color
 	 */
-	public Ladrillo(int x, int y, Color color) {
+	public Ladrillo(int x, int y,int imagen) {
+		List<BufferedImage> nuevosSprites = new ArrayList<BufferedImage>();
+		nuevosSprites.add(CacheRecursos.getInstancia().getImagen("GoldWall.png"));
+		nuevosSprites.add(CacheRecursos.getInstancia().getImagen("SilverWall.png"));
+		nuevosSprites.add(CacheRecursos.getInstancia().getImagen("ladrilloArkanoidAmarillo.png"));
+		nuevosSprites.add(CacheRecursos.getInstancia().getImagen("ladrilloArkanoidRojo.png"));
+		nuevosSprites.add(CacheRecursos.getInstancia().getImagen("ladrilloArkanoidVerde.png"));
+		nuevosSprites.add(CacheRecursos.getInstancia().getImagen("ladrilloArkanoidAzul.png"));
+		nuevosSprites.add(CacheRecursos.getInstancia().getImagen("ladrilloArkanoidRosa.png"));
+		nuevosSprites.add(CacheRecursos.getInstancia().getImagen("ladrilloArkanoidAzulClarito.png"));
 		this.x = x;
 		this.y = y;
-		this.color = color;
-	}
-	/**
-	 * Pintado del ladrillo en pantalla
-	 */
-	public void paint(Graphics2D g){
-		g.setColor(this.color);
-		// Pinto el ladrillo como un rectángulo con vértices redondeados
-		g.fillRoundRect(this.x, this.y, ANCHO, ALTO, 3, 3);
+		this.ancho = ANCHO;
+		this.alto = ALTO;
+		this.spriteActual = nuevosSprites.get(imagen);
+		this.codigoImagen=imagen;
+		
 	}
 	
-	public void collision(Objeto o) {
-		if (o instanceof Bola) {
-		  remove();
+
+	
+	/**
+	 * Colisión detectada
+	 */
+	@Override
+	public void colisionProducidaConOtroActor(Actor actorColisionado) {
+	if(this.codigoImagen!=0){
+			super.colisionProducidaConOtroActor(actorColisionado);
+			// Si un ladrillo detecta una colisión con un objeto de tipo "Bola", debe desaparecer
+			if (actorColisionado instanceof Bola) {
+				eliminar();
+				// Creo un nuevo actor de tipo Explosion y lo centró respecto a la posición del ladrillo
+				Explosion explosion = new Explosion(this.getX(), this.getY());
+				explosion.setX(this.x + Ladrillo.ANCHO / 2 - explosion.getAncho() / 2);
+				Arkanoid.getInstancia().agregarActor(explosion);
+				// Reproduzco el sonido de la explisión
+				CacheRecursos.getInstancia().playSonido("Rebote.wav");
+			}
 		}
 	}
 
-
-	// Métodos getter y setter
-	public Color getColor() { return color; }
-	public void setColor(Color color) { this.color = color; }
 }

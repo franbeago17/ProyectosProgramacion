@@ -73,5 +73,5 @@ public class Objeto {
 		return new Rectangle(x,y,width,height);
 	}
 	
-	public void collision(Objeto o){ }
+	public void collision(Objeto o) {}
 }
