@@ -12,8 +12,8 @@ import java.util.List;
  */
 public class Ladrillo extends Actor {
 	// Damos un ancho y un alto específico al ladrillo. Suponemos que todos los ladrillos serán iguales
-	public static final int ANCHO = 48;
-	public static final int ALTO = 24;
+	public static final int ANCHO = 46;
+	public static final int ALTO = 20;
 	public static final int ESPACIO_ENTRE_LADRILLOS = 2;
 	private int codigoImagen;
 	
@@ -39,14 +39,15 @@ public class Ladrillo extends Actor {
 	 */
 	public Ladrillo(int x, int y,int imagen) {
 		List<BufferedImage> nuevosSprites = new ArrayList<BufferedImage>();
-		nuevosSprites.add(CacheRecursos.getInstancia().getImagen("GoldWall.png"));
-		nuevosSprites.add(CacheRecursos.getInstancia().getImagen("SilverWall.png"));
+		nuevosSprites.add(CacheRecursos.getInstancia().getImagen("ladrilloArkanoidOro.png"));
+		nuevosSprites.add(CacheRecursos.getInstancia().getImagen("ladrilloArkanoidPlata.png"));
 		nuevosSprites.add(CacheRecursos.getInstancia().getImagen("ladrilloArkanoidAmarillo.png"));
 		nuevosSprites.add(CacheRecursos.getInstancia().getImagen("ladrilloArkanoidRojo.png"));
 		nuevosSprites.add(CacheRecursos.getInstancia().getImagen("ladrilloArkanoidVerde.png"));
 		nuevosSprites.add(CacheRecursos.getInstancia().getImagen("ladrilloArkanoidAzul.png"));
 		nuevosSprites.add(CacheRecursos.getInstancia().getImagen("ladrilloArkanoidRosa.png"));
 		nuevosSprites.add(CacheRecursos.getInstancia().getImagen("ladrilloArkanoidAzulClarito.png"));
+		nuevosSprites.add(CacheRecursos.getInstancia().getImagen("darth-vader.jpg"));
 		this.x = x;
 		this.y = y;
 		this.ancho = ANCHO;
@@ -63,19 +64,21 @@ public class Ladrillo extends Actor {
 	 */
 	@Override
 	public void colisionProducidaConOtroActor(Actor actorColisionado) {
-	if(this.codigoImagen!=0){
-			super.colisionProducidaConOtroActor(actorColisionado);
-			// Si un ladrillo detecta una colisión con un objeto de tipo "Bola", debe desaparecer
-			if (actorColisionado instanceof Bola) {
-				eliminar();
-				// Creo un nuevo actor de tipo Explosion y lo centró respecto a la posición del ladrillo
-				Explosion explosion = new Explosion(this.getX(), this.getY());
-				explosion.setX(this.x + Ladrillo.ANCHO / 2 - explosion.getAncho() / 2);
-				Arkanoid.getInstancia().agregarActor(explosion);
-				// Reproduzco el sonido de la explisión
-				CacheRecursos.getInstancia().playSonido("Rebote.wav");
+		if(this.codigoImagen!=0){
+				super.colisionProducidaConOtroActor(actorColisionado);
+				// Si un ladrillo detecta una colisión con un objeto de tipo "Bola", debe desaparecer
+				if (actorColisionado instanceof Bola) {
+					eliminar();
+					// Creo un nuevo actor de tipo Explosion y lo centró respecto a la posición del ladrillo
+					Explosion explosion = new Explosion(this.getX(), this.getY());
+					explosion.setX(this.x + Ladrillo.ANCHO / 2 - explosion.getAncho() / 2);
+					Arkanoid.getInstancia().agregarActor(explosion);
+					// Reproduzco el sonido de la explisión
+					CacheRecursos.getInstancia().playSonido("Explosion.wav");
+				}
 			}
+		else {
+			CacheRecursos.getInstancia().playSonido("Arkanoid-SFX-05.wav");
 		}
 	}
-
 }

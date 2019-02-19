@@ -18,11 +18,13 @@ public class Bola extends Actor {
 	public static final int DIAMETRO = 15;
 	// Segundos que se puede esperar con la bola quieta
 	public static final int SEGUNDOS_MAXIMA_ESPERA_A_INICIO_DE_MOVIMIENTO = 5;
+	public static Bola instancia = null;
 	// La siguiente variable nos ayuda a contar el tiempo que ha pasado desde que se inicializa la bola
 	private long millisDesdeInicializacion = new Date().getTime();
 	
 	// La bola se moverá en una determinada recta (trayectoria) con una determinada velocidad
 	public TrayectoriaRecta trayectoria = null;
+	private boolean arreglarVidas = false; 
 	// Para el control preciso del aumento de la velocidad de la bola constante utilizo unas coordenadas flotantes
 	// aunque eso no quita que sigan existiendo las coordenades x e y del supertipo Actor. De hecho, cada vez que
 	// actualizamos las coordenadas flotantes también actualizaré las coordenadas enteras.
@@ -31,7 +33,18 @@ public class Bola extends Actor {
 	// La velocidad de la Bola aumentará conforme vaya aumentando el número de frames generados con el siguiente factor
 	private float factorIncrementoVelocidadBola = 1.00035f;
 	// Máxima velocidad posible a alcanzar
-	private static final float MAXIMA_VELOCIDAD = 12;
+	private static float MAXIMA_VELOCIDAD = 7;
+	
+	/**
+	 * Getter Singleton
+	 * @return
+	 */
+	public static Bola getInstancia () {
+		if (instancia == null) {
+			instancia = new Bola();
+		}
+		return instancia;
+	}
 	
 	
 	/**
@@ -89,7 +102,11 @@ public class Bola extends Actor {
 			if (this.velocidadPorFrame < MAXIMA_VELOCIDAD) {
 				this.velocidadPorFrame *= this.factorIncrementoVelocidadBola;
 			}
-
+			if ( this.y > 560) {
+				this.trayectoria = null;
+				marcadoParaEliminacion = true;
+				Arkanoid.vidas--;
+			}
 		}
 	}
 
@@ -186,6 +203,7 @@ public class Bola extends Actor {
 		}
 		else if (actorColisionado instanceof Nave) { // Colisión con nave
 			colisionConNave((Nave)  actorColisionado);
+			CacheRecursos.getInstancia().playSonido("Rebote.wav");
 		}
 	}
 	
@@ -315,6 +333,24 @@ public class Bola extends Actor {
 		else { // La bola intersecta la parte central de la nave
 			this.trayectoria.reflejarHaciaArriba(this.coordenadas);
 			return;
-		}			
+		}
 	}
+
+
+	public float getVelocidadPorFrame() {
+		return velocidadPorFrame;
+	}
+	public void setVelocidadPorFrame(float velocidadPorFrame) {
+		this.velocidadPorFrame = velocidadPorFrame;
+	}
+	
+	
+	public static float getMaximaVelocidad() {
+		return MAXIMA_VELOCIDAD;
+	}
+	public static void setMAXIMA_VELOCIDAD(float mAXIMA_VELOCIDAD) {
+		MAXIMA_VELOCIDAD = mAXIMA_VELOCIDAD;
+	}
+	
+	
 }

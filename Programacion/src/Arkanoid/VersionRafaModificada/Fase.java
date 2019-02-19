@@ -10,6 +10,8 @@ import java.util.List;
  */
 public abstract class Fase {
 	
+	public int numLadrillos = 0;
+	
 	// Lista de actores a colocar en cualquier fase
 	protected List<Actor> actores = new ArrayList<Actor>();
 	
@@ -21,6 +23,6 @@ public abstract class Fase {
 	
 	// Archivo de sonido del principio de la fase
 	public String getNombreSonidoInicio () {
-		return "Arkanoid-start-of-stage.wav";
+		return "Oh_mama_csgo.wav";
 	}
 }

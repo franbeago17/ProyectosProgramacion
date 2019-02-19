@@ -103,5 +103,21 @@ public class Actor {
 	}
 	public int getVelocidadDeCambioDeSprite() { return velocidadDeCambioDeSprite; }
 	public void setVelocidadDeCambioDeSprite(int velocidadDeCambioDeSprite) { this.velocidadDeCambioDeSprite = velocidadDeCambioDeSprite; }
+
+
+	/**
+	 * @return the marcadoParaEliminacion
+	 */
+	public boolean isMarcadoParaEliminacion() {
+		return marcadoParaEliminacion;
+	}
+
+
+	/**
+	 * @param marcadoParaEliminacion the marcadoParaEliminacion to set
+	 */
+	public void setMarcadoParaEliminacion(boolean marcadoParaEliminacion) {
+		this.marcadoParaEliminacion = marcadoParaEliminacion;
+	}
 	
 }

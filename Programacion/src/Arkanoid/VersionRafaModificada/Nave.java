@@ -1,7 +1,11 @@
 package Arkanoid.VersionRafaModificada;
 
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Clase que representa a la nave de nuestro juego
@@ -13,6 +17,8 @@ public class Nave extends Actor {
 	private boolean moviendoAIzquierda = false;
 	private boolean moviendoADerecha = false;
 	private int velocidad = 5;
+	protected int ancho = this.spriteActual.getWidth();
+	protected int alto = this.spriteActual.getHeight();
 	
 	
 	/**
@@ -21,13 +27,24 @@ public class Nave extends Actor {
 	public Nave() {
 		super();
 		// Carga del sprite de la nave
-		this.spriteActual = CacheRecursos.getInstancia().getImagen("naveArkanoid.png");
-		// Ajusto el ancho virtual de este objeto al mismo ancho que tiene la imagen del sprite
+		List<BufferedImage> nuevosSprites = new ArrayList<BufferedImage>();
+		nuevosSprites.add(CacheRecursos.getInstancia().getImagen("naveArkanoid.png"));
+		nuevosSprites.add(CacheRecursos.getInstancia().getImagen("naveArkanoidLarga.png"));
+		this.setSpritesDeAnimacion(nuevosSprites);
+		// Sprite actual
+		this.spriteActual = this.getSpritesDeAnimacion().get(0);
 		this.ancho = this.spriteActual.getWidth();
 		this.alto = this.spriteActual.getHeight();
 		// Colocación de la nave en el centro horizontalmente y en la parte baja de la pantalla
 		this.x = Arkanoid.ANCHO / 2;
 		this.y = Arkanoid.ALTO - 50;
+	}
+	
+	@Override
+	public void colisionProducidaConOtroActor(Actor actorColisionado) {
+		if (actorColisionado instanceof PildoraAmarilla) {
+			this.spriteActual = this.getSpritesDeAnimacion().get(1);
+		}
 	}
 	
 
@@ -88,5 +105,9 @@ public class Nave extends Actor {
 			case KeyEvent.VK_RIGHT : moviendoADerecha = false; break;
 		}
 	}
-	    
+	
+	public Rectangle getRectanguloParaColisiones() {
+        return new Rectangle(this.x, this.y , this.ancho, this.alto);
+
+    }
 }

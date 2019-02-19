@@ -3,7 +3,9 @@ package Arkanoid.VersionRafaModificada;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.JobAttributes;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
@@ -11,6 +13,7 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.spi.TimeZoneNameProvider;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -18,15 +21,16 @@ import javax.swing.JPanel;
 
 
 /**
- * Clase principal del programa, act˙a como la ventana que ver· el usuario. Se utiliza un patrÛn Singleton
+ * Clase principal del programa, act√∫a como la ventana que ver√° el usuario. Se utiliza un patr√≥n Singleton
  * @author R
  *
  */
 public class Arkanoid extends Canvas {
-	// Variables est·ticas
-	public static final int ANCHO = 400;
+	// Variables est√°ticas
+	public static final int ANCHO = 461;
 	public static final int ALTO = 600;
 	public static final int FPS = 101; // Frames por segundo
+	static int vidas = 3;
 	// Ventana
 	JFrame ventana = null;
 	// Lista de actores que se representan en pantalla
@@ -35,13 +39,17 @@ public class Arkanoid extends Canvas {
 	Nave nave = new Nave();
 	Bola bola = new Bola();
 	// Fase activa en el juego
-	Fase faseActiva = null;
+	Fase faseActiva =null;
+	Fase fases[] = new Fase[] {new Fase01(),  new Fase02()};
+	int numFases = 0;
+	boolean bolaBorrada = false;
 	// Estrategia de Doble Buffer
 	private BufferStrategy strategy;
-	// Variable para patrÛn Singleton
+	// Variable para patr√≥n Singleton
 	private static Arkanoid instancia = null;
-	// Lista con actores nuevos que se deben incorporar en la siguiente iteraciÛn del juego
+	// Lista con actores nuevos que se deben incorporar en la siguiente iteraci√≥n del juego
 	List<Actor> actoresAInsertar = new ArrayList<Actor>();
+	float azar;
 	
 	/**
 	 * Getter Singleton
@@ -60,13 +68,13 @@ public class Arkanoid extends Canvas {
 	 * Constructor
 	 */
 	public Arkanoid() {
-		// CreaciÛn de la ventana
+		// Creaci√≥n de la ventana
 		ventana = new JFrame("Arkanoid");
 		// Obtenemos el panel principal del JFrame
 		JPanel panel = (JPanel) ventana.getContentPane();
 		// Establezco las dimensiones del Canvas
 		this.setBounds(0,0,ANCHO,ALTO);
-		// El panel tendr· un tamaÒo preferido
+		// El panel tendr√° un tama√±o preferido
 		panel.setPreferredSize(new Dimension(ANCHO,ALTO));
 		panel.setLayout(null);
 		// Agregamos el Canvas al panel
@@ -75,7 +83,7 @@ public class Arkanoid extends Canvas {
 		ventana.setBounds( 0, 0, ANCHO+5, ALTO+28);
 		// Hacemos el JFrame visible
 		ventana.setVisible(true);
-		// Con el siguiente cÛdigo preguntamos al usuario si realmente desea cerrar la aplicaciÛn, cuando
+		// Con el siguiente c√≥digo preguntamos al usuario si realmente desea cerrar la aplicaci√≥n, cuando
 		// pulse sobre el aspa de la ventana
 		ventana.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		ventana.addWindowListener( new WindowAdapter() {
@@ -83,21 +91,21 @@ public class Arkanoid extends Canvas {
 				cerrarAplicacion();
 			}
 		});
-		// CreaciÛn de la estrategia de doble b˙ffer
+		// Creaci√≥n de la estrategia de doble b√∫ffer
 		this.createBufferStrategy(2);
 		strategy = this.getBufferStrategy();
 		// Con ignoreRepaint le decimos al JFrame que no debe repintarse cuando el Sistema Operativo se lo indique,
 		// nosotros nos ocupamos totalmente del refresco de la pantalla
 		ventana.setIgnoreRepaint(true);
-		// La ventana no podr· redimensionarse
+		// La ventana no podr√° redimensionarse
 		ventana.setResizable(false);
-		// Hacemos que el Canvas obtenga autom·ticamente el foco del programa para que, si se pulsa una tecla, la pulsaciÛn
+		// Hacemos que el Canvas obtenga autom√°ticamente el foco del programa para que, si se pulsa una tecla, la pulsaci√≥n
 		// se transmita directamente al Canvas.
 		this.requestFocus();
-		// Para resolver un problema de sincronizaciÛn con la memoria de vÌdeo de Linux, utilizamos esta lÌnea
+		// Para resolver un problema de sincronizaci√≥n con la memoria de v√≠deo de Linux, utilizamos esta l√≠nea
 		Toolkit.getDefaultToolkit().sync();
 		
-		// Agrego los controladores de ratÛn y de teclado
+		// Agrego los controladores de rat√≥n y de teclado
 		ControladorRaton controladorRaton = new ControladorRaton();
 		this.addMouseMotionListener(controladorRaton);
 		this.addMouseListener(controladorRaton);
@@ -107,11 +115,11 @@ public class Arkanoid extends Canvas {
 	
 
 	/**
-	 * Al cerrar la aplicaciÛn preguntaremos al usuario si est· seguro de que desea salir.
+	 * Al cerrar la aplicaci√≥n preguntaremos al usuario si est√° seguro de que desea salir.
 	 */
 	private void cerrarAplicacion() {
 		String [] opciones ={"Aceptar","Cancelar"};
-		int eleccion = JOptionPane.showOptionDialog(ventana,"øDesea cerrar la aplicaciÛn?","Salir de la aplicaciÛn",
+		int eleccion = JOptionPane.showOptionDialog(ventana,"¬øDesea cerrar la aplicaci√≥n?","Salir de la aplicaci√≥n",
 		JOptionPane.YES_NO_OPTION,
 		JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
 		if (eleccion == JOptionPane.YES_OPTION) {
@@ -126,49 +134,88 @@ public class Arkanoid extends Canvas {
 	 * la primera fase.
 	 */
 	public void initWorld() {
-		// PreparaciÛn de la primera fase
-		this.faseActiva = new Fase01();
+		bolaBorrada = false;
+		this.faseActiva = fases[numFases];
 		this.faseActiva.inicializaFase();
 		// Agregamos los actores de la primera fase a nuestro juego
 		this.actores.clear();
 		this.actores.addAll(this.faseActiva.getActores());
-		// CreaciÛn de los actores Nave y Bola
+		// Creaci√≥n de los actores Nave y Bola
 	    this.actores.add(this.nave);
 	    this.actores.add(this.bola);
 	}
 		
 
 	/**
-	 * Cada vez que actualicemos el juego se llamar· a este mÈtodo	
+	 * Cada vez que actualicemos el juego se llamar√° a este m√©todo	
 	 */
 	public void updateWorld() {
-		// ComprobaciÛn de las colisiones posibles producidas
-		// Para detectar colisiones me basta con coger a los ladrillos del array de actores y comprobar si tienen colisiÛn con la
-		// bola, ya que es el ˙nico caso que de momento nos interesa para romper ladrillos.
-		// TambiÈn intentarÈ encontrar una colisiÛn entre la bola y la nave
+		// Comprobaci√≥n de las colisiones posibles producidas
+		// Para detectar colisiones me basta con coger a los ladrillos del array de actores y comprobar si tienen colisi√≥n con la
+		// bola, ya que es el √∫nico caso que de momento nos interesa para romper ladrillos.
+		// Tambi√©n intentar√© encontrar una colisi√≥n entre la bola y la nave
 		for (Actor actor : this.actores) {
 			if (actor instanceof Ladrillo || actor instanceof Nave) {
 				if (detectarYNotificarColisionConBola (actor)) {
-					break; // Una vez que detecto la primera colisiÛn dejo de buscar m·s colisiones.
+					break; // Una vez que detecto la primera colisi√≥n dejo de buscar m√°s colisiones.
+				}
+			}
+			if (actor instanceof PildoraMorada) {
+				if (detectarYNotificarColisionConNave(actor)) {
+					vidas++;
+					break;
+				}
+			}
+			if (actor instanceof PildoraVerde) {
+				if (detectarYNotificarColisionConNave(actor)) {
+					bola.setVelocidadPorFrame(6.5f);
+					bola.setMAXIMA_VELOCIDAD(12);
+					break;
+				}
+			}
+			if (actor instanceof PildoraAmarilla) {
+				if (detectarYNotificarColisionConNave(actor)) {
+					break;
 				}
 			}
 		}
 		
-		// A continuaciÛn se revisa si alguno de los actores de la lista ha sido marcado para su eliminaciÛn. En caso de ser asÌ
+		// A continuaci√≥n se revisa si alguno de los actores de la lista ha sido marcado para su eliminaci√≥n. En caso de ser as√≠
 		// se procede a borrarlo de la lista.
-		for (int i = this.actores.size()-1; i >= 0; i--) {
+		for (int i = this.actores.size() - 1; i >= 0; i--) {
 			if (this.actores.get(i).marcadoParaEliminacion) {
 				this.actores.remove(i);
+				if (bola.marcadoParaEliminacion) {
+					this.bola = new Bola();
+					this.actores.add(bola);
+				}
+			if(this.actores.get(i) instanceof Ladrillo) {
+	                this.faseActiva.numLadrillos--;
+	                azar = (float) Math.round(Math.random()*100);
+	                
+	                if (azar >= 0 && azar <=33) {
+		                PildoraMorada pildora1 = new PildoraMorada(this.actores.get(i).getX()-46,this.actores.get(i).getY());
+						this.actores.add(pildora1);
+	                }
+	                if (azar >= 33 && azar <=66) {
+		                PildoraVerde pildora2 = new PildoraVerde(this.actores.get(i).getX()-46,this.actores.get(i).getY());
+						this.actores.add(pildora2);
+	                }
+	                if (azar >= 66 && azar <=99) {
+		                PildoraAmarilla pildora3 = new PildoraAmarilla(this.actores.get(i).getX()-46,this.actores.get(i).getY());
+						this.actores.add(pildora3);
+	                }
+				}
 			}
 		}
 		
-		// Agregamos aquellos nuevos actores que se desea incorporar a la siguiente escena
+		//Agregamos aquellos nuevos actores que se desea incorporar a la siguiente escena
 		for (Actor nuevoActor : this.actoresAInsertar) {
 			this.actores.add(0, nuevoActor);
 		}
 		this.actoresAInsertar.clear(); // Limpio el array de actores a insertar
 		
-		// ActualizaciÛn de todos los actores
+		// Actualizaci√≥n de todos los actores
 		for (Actor actor : this.actores) {
 			actor.act();
 		}
@@ -183,7 +230,7 @@ public class Arkanoid extends Canvas {
 	private boolean detectarYNotificarColisionConBola (Actor actor) {
 		Rectangle rectActor = new Rectangle(actor.getX(), actor.getY(), actor.getAncho(), actor.getAlto());
 		if (rectActor.intersects(this.bola.getRectanguloParaColisiones())) {
-			// En el caso de que exista una colisiÛn, informo a los dos actores de que han colisionado y les indico el
+			// En el caso de que exista una colisi√≥n, informo a los dos actores de que han colisionado y les indico el
 			// actor con el que se ha producido el choque
 			actor.colisionProducidaConOtroActor(this.bola);
 			this.bola.colisionProducidaConOtroActor(actor);
@@ -192,19 +239,34 @@ public class Arkanoid extends Canvas {
 		return false;
 	}
 	
+	private boolean detectarYNotificarColisionConNave (Actor actor) {
+		Rectangle rectActor = new Rectangle(actor.getX(), actor.getY(), actor.getAncho(), actor.getAlto());
+		if (rectActor.intersects(this.nave.getRectanguloParaColisiones())) {
+			// En el caso de que exista una colisi√≥n, informo a los dos actores de que han colisionado y les indico el
+			// actor con el que se ha producido el choque
+			actor.colisionProducidaConOtroActor(this.nave);
+			this.nave.colisionProducidaConOtroActor(actor);
+			return true;
+		}
+		return false;
+	}
+	
 	
 
 	/**
-	 * MÈtodo responsable de repintar cada frame del juego
+	 * M√©todo responsable de repintar cada frame del juego
 	 */
 	public void paintWorld() {
-		// Obtenemos el objeto Graphics (la brocha) desde la estrategia de doble b˙ffer
+		// Obtenemos el objeto Graphics (la brocha) desde la estrategia de doble b√∫ffer
 		Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
-		// Lo primero que hace cada frame es pintar un rect·ngulo tan grande como la escena,
+		// Lo primero que hace cada frame es pintar un rect√°ngulo tan grande como la escena,
 		// para superponer la escena anterior.
 		g.drawImage(CacheRecursos.getInstancia().getImagen("ArkanoidFondo.png"), 0, 0, this);
+		g.setColor(Color.RED);
+		g.setFont(new Font("Console", Font.BOLD, 18));
+		g.drawString(vidas + "‚ô•", 430, 589);
 
-		// Ejecutamos el mÈtodo paint de cada uno de los actores
+		// Ejecutamos el m√©todo paint de cada uno de los actores
 		for (Actor actor : this.actores) {
 			actor.paint(g);
 		}
@@ -214,15 +276,15 @@ public class Arkanoid extends Canvas {
 	
 	
 	/**
-	 * MÈtodo principal del juego. Contiene el bucle principal
+	 * M√©todo principal del juego. Contiene el bucle principal
 	 */
 	public void game() {
-		// InicializaciÛn del juego
+		// Inicializaci√≥n del juego
 		Toolkit.getDefaultToolkit().sync();
 		initWorld();
 		// Sonido de comienzo de la fase
 		CacheRecursos.getInstancia().playSonido(this.faseActiva.getNombreSonidoInicio());
-		// Este bucle se ejecutar· mientras el objeto Canvas sea visible.
+		// Este bucle se ejecutar√° mientras el objeto Canvas sea visible.
 		while (this.isVisible()) {
 			// Tomamos el tiempo en milisegundos antes de repintar el frame
 			long millisAntesDeConstruirEscena = System.currentTimeMillis();
@@ -239,12 +301,35 @@ public class Arkanoid extends Canvas {
 					 Thread.sleep(millisADetenerElJuego);
 				}
 			} catch (InterruptedException e) {}
+			
+			if (this.faseActiva.numLadrillos <= 0) {
+				JOptionPane.showMessageDialog(null,"Vamo a irno");
+				Animacion animacion = new Animacion(0, 0);
+				actores.add(animacion);
+				actores.clear();
+				numFases++;
+				this.faseActiva=fases[numFases];
+				bola = new Bola();
+				initWorld();
+			}
+			else {
+				if (vidas <= 0) {
+					Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
+					Ladrillo ladrillo = new Ladrillo(0, 0, 8);
+					actores.clear();
+					actores.add(ladrillo);
+					updateWorld();
+					paintWorld();
+					JOptionPane.showMessageDialog(null, "Has perdido matao");
+					System.exit(0);
+				}
+			}
 		}
 	}
 	
 	
 	/**
-	 * MÈtodo que permite agregar un nuevo actor
+	 * M√©todo que permite agregar un nuevo actor
 	 * @param nuevoActor
 	 */
 	public void agregarActor (Actor nuevoActor) {
@@ -260,7 +345,7 @@ public class Arkanoid extends Canvas {
 
 
 	/**
-	 * MÈtodo main()
+	 * M√©todo main()
 	 * @param args
 	 */
 	public static void main(String[] args) {
