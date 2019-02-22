@@ -169,7 +169,7 @@ public class Arkanoid extends Canvas {
 			if (actor instanceof PildoraVerde) {
 				if (detectarYNotificarColisionConNave(actor)) {
 					bola.setVelocidadPorFrame(6.5f);
-					bola.setMAXIMA_VELOCIDAD(12);
+					bola.setMAXIMA_VELOCIDAD(20);
 					break;
 				}
 			}
@@ -302,7 +302,7 @@ public class Arkanoid extends Canvas {
 				}
 			} catch (InterruptedException e) {}
 			
-			if (this.faseActiva.numLadrillos <= 0) {
+			if (this.faseActiva.numLadrillos <= 47) {
 				JOptionPane.showMessageDialog(null,"Vamo a irno");
 				Animacion animacion = new Animacion(0, 0);
 				actores.add(animacion);
